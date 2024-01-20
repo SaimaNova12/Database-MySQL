@@ -1,0 +1,468 @@
+
+Setting environment for using XAMPP for Windows.
+DELL@DESKTOP-P2BVMSV c:\xampp
+# mysql -u root -h localhost
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 232
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use queries_1;
+Database changed
+MariaDB [queries_1]> CREATE TABLE employees (
+    ->     EMPLOYEE_ID int,
+    ->     LAST_NAME varchar(255),
+    ->     FIRST_NAME varchar(255),
+    ->     MIDDLE_NAME varchar(255),
+    ->     JOB_ID INT,
+    ->     MANAGER_ID INT,
+    ->     HIRE_DATE DATETIME,
+    ->     SALARY INT,
+    ->     COMM INT,
+    ->     DEPARTMENT_ID INT,
+    ->     PRIMARY KEY (EMPLOYEE_ID));
+Query OK, 0 rows affected (0.010 sec)
+
+MariaDB [queries_1]> describe employees;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| EMPLOYEE_ID   | int(11)      | NO   | PRI | NULL    |       |
+| LAST_NAME     | varchar(255) | YES  |     | NULL    |       |
+| FIRST_NAME    | varchar(255) | YES  |     | NULL    |       |
+| MIDDLE_NAME   | varchar(255) | YES  |     | NULL    |       |
+| JOB_ID        | int(11)      | YES  |     | NULL    |       |
+| MANAGER_ID    | int(11)      | YES  |     | NULL    |       |
+| HIRE_DATE     | datetime     | YES  |     | NULL    |       |
+| SALARY        | int(11)      | YES  |     | NULL    |       |
+| COMM          | int(11)      | YES  |     | NULL    |       |
+| DEPARTMENT_ID | int(11)      | YES  |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+10 rows in set (0.014 sec)
+
+MariaDB [queries_1]> CREATE TABLE DEPARTMENT (
+    ->     DEPARTMENT_ID INT,
+    ->     NAME varchar(255),
+    ->     LOCATION_ID INT,
+    ->     PRIMARY KEY (DEPARTMENT_ID));
+Query OK, 0 rows affected (0.010 sec)
+
+MariaDB [queries_1]> describe department;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| DEPARTMENT_ID | int(11)      | NO   | PRI | NULL    |       |
+| NAME          | varchar(255) | YES  |     | NULL    |       |
+| LOCATION_ID   | int(11)      | YES  |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+3 rows in set (0.014 sec)
+
+MariaDB [queries_1]> CREATE TABLE LOCATION (
+    ->     LOCATION_ID INT,
+    ->     REGIONAL_GROUP varchar(255),
+    ->     PRIMARY KEY (LOCATION_ID));
+Query OK, 0 rows affected (0.010 sec)
+
+MariaDB [queries_1]> describe location;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| LOCATION_ID    | int(11)      | NO   | PRI | NULL    |       |
+| REGIONAL_GROUP | varchar(255) | YES  |     | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+2 rows in set (0.013 sec)
+
+MariaDB [queries_1]> CREATE TABLE JOB (
+    ->     JOB_ID INT,
+    ->     FUNCTION varchar(255),
+    ->     PRIMARY KEY (JOB_ID)
+    -> );
+Query OK, 0 rows affected (0.010 sec)
+
+MariaDB [queries_1]> describe job;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| JOB_ID   | int(11)      | NO   | PRI | NULL    |       |
+| FUNCTION | varchar(255) | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+2 rows in set (0.014 sec)
+
+MariaDB [queries_1]> INSERT INTO employees VALUES
+    ->     (1 'Saima', 'Binta', 'Younus', 667, 7902, '2021/12/01', 800, NULL, 20),
+    ->     (2, 'Israt', 'Binta', 'Younus', 670, 7698, '2021/9/01', 1600, 300, 30),
+    ->     (3, 'Arian', 'Binta', 'Younus', 671, 7839, '2027/10/12', 2850, NULL, 30),
+    ->     (4, 'Nusrat', 'Binta', 'Younus', 671, 7839, '2023/12/29', 2750, NULL, 30),
+    ->     (5, 'Nazmun', 'Nahar', 'Moon', 671, 7839, '2029/11/23', 2200, NULL, 40),
+    ->     (6, 'younus', 'Ali', 'Khoka', 670, 7698, '2020/12/29', 1250, NULL, 40);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''Saima', 'Binta', 'Younus', 667, 7902, '2021/12/01', 800, NULL, 20),
+    (2, ...' at line 2
+MariaDB [queries_1]> INSERT INTO employees VALUES
+    ->     (1, 'Saima', 'Binta', 'Younus', 667, 7902, '2021/12/01', 800, NULL, 20),
+    ->     (2, 'Israt', 'Binta', 'Younus', 670, 7698, '2021/9/01', 1600, 300, 30),
+    ->     (3, 'Arian', 'Binta', 'Younus', 671, 7839, '2027/10/12', 2850, NULL, 30),
+    ->     (4, 'Nusrat', 'Binta', 'Younus', 671, 7839, '2023/12/29', 2750, NULL, 30),
+    ->     (5, 'Nazmun', 'Nahar', 'Moon', 671, 7839, '2029/11/23', 2200, NULL, 40),
+    ->     (6, 'younus', 'Ali', 'Khoka', 670, 7698, '2020/12/29', 1250, NULL, 40);
+Query OK, 6 rows affected (0.003 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+MariaDB [queries_1]> select * from employees;
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+| EMPLOYEE_ID | LAST_NAME | FIRST_NAME | MIDDLE_NAME | JOB_ID | MANAGER_ID | HIRE_DATE           | SALARY | COMM | DEPARTMENT_ID |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+|           1 | Saima     | Binta      | Younus      |    667 |       7902 | 2021-12-01 00:00:00 |    800 | NULL |            20 |
+|           2 | Israt     | Binta      | Younus      |    670 |       7698 | 2021-09-01 00:00:00 |   1600 |  300 |            30 |
+|           3 | Arian     | Binta      | Younus      |    671 |       7839 | 2027-10-12 00:00:00 |   2850 | NULL |            30 |
+|           4 | Nusrat    | Binta      | Younus      |    671 |       7839 | 2023-12-29 00:00:00 |   2750 | NULL |            30 |
+|           5 | Nazmun    | Nahar      | Moon        |    671 |       7839 | 2029-11-23 00:00:00 |   2200 | NULL |            40 |
+|           6 | younus    | Ali        | Khoka       |    670 |       7698 | 2020-12-29 00:00:00 |   1250 | NULL |            40 |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+6 rows in set (0.001 sec)
+
+MariaDB [queries_1]> INSERT INTO DEPARTMENT VALUES
+    ->     (10, 'ACCOUNTING', 122),
+    ->     (20, 'RESEARCH', 124),
+    ->     (30, 'SALES', 123),
+    ->     (40, 'OPERATIONS', 167);
+Query OK, 4 rows affected (0.002 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [queries_1]> select * from department;
++---------------+------------+-------------+
+| DEPARTMENT_ID | NAME       | LOCATION_ID |
++---------------+------------+-------------+
+|            10 | ACCOUNTING |         122 |
+|            20 | RESEARCH   |         124 |
+|            30 | SALES      |         123 |
+|            40 | OPERATIONS |         167 |
++---------------+------------+-------------+
+4 rows in set (0.000 sec)
+
+MariaDB [queries_1]> INSERT INTO LOCATION VALUES
+    -> (122, 'NEW YORK'),
+    ->     (123, 'DALLAS'),
+    ->     (124, 'CHICAGO'),
+    ->     (167, 'BOSTON');
+Query OK, 4 rows affected (0.002 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [queries_1]> select * from location;
++-------------+----------------+
+| LOCATION_ID | REGIONAL_GROUP |
++-------------+----------------+
+|         122 | NEW YORK       |
+|         123 | DALLAS         |
+|         124 | CHICAGO        |
+|         167 | BOSTON         |
++-------------+----------------+
+4 rows in set (0.000 sec)
+
+MariaDB [queries_1]> INSERT INTO JOB VALUES
+    -> (667, 'CLERK'),
+    ->     (668, 'STAFF'),
+    ->     (669, 'ANALYST'),
+    ->     (670, 'SALESPERSION'),
+    ->     (671, 'MANAGER'),
+    ->     (672, 'PRESIDENT');
+Query OK, 6 rows affected (0.002 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+MariaDB [queries_1]> select * from job;
++--------+--------------+
+| JOB_ID | FUNCTION     |
++--------+--------------+
+|    667 | CLERK        |
+|    668 | STAFF        |
+|    669 | ANALYST      |
+|    670 | SALESPERSION |
+|    671 | MANAGER      |
+|    672 | PRESIDENT    |
++--------+--------------+
+6 rows in set (0.000 sec)
+
+MariaDB [queries_1]> select * from employees where comm = "NULL";
+Empty set, 1 warning (0.001 sec)
+
+MariaDB [queries_1]> select * from employees where comm = NULL;
+Empty set (0.001 sec)
+
+MariaDB [queries_1]> select * from employees where comm is NULL;
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+| EMPLOYEE_ID | LAST_NAME | FIRST_NAME | MIDDLE_NAME | JOB_ID | MANAGER_ID | HIRE_DATE           | SALARY | COMM | DEPARTMENT_ID |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+|           1 | Saima     | Binta      | Younus      |    667 |       7902 | 2021-12-01 00:00:00 |    800 | NULL |            20 |
+|           3 | Arian     | Binta      | Younus      |    671 |       7839 | 2027-10-12 00:00:00 |   2850 | NULL |            30 |
+|           4 | Nusrat    | Binta      | Younus      |    671 |       7839 | 2023-12-29 00:00:00 |   2750 | NULL |            30 |
+|           5 | Nazmun    | Nahar      | Moon        |    671 |       7839 | 2029-11-23 00:00:00 |   2200 | NULL |            40 |
+|           6 | younus    | Ali        | Khoka       |    670 |       7698 | 2020-12-29 00:00:00 |   1250 | NULL |            40 |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+5 rows in set (0.002 sec)
+
+MariaDB [queries_1]> select * from employees where department_id = 30 and salary>1600;
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+| EMPLOYEE_ID | LAST_NAME | FIRST_NAME | MIDDLE_NAME | JOB_ID | MANAGER_ID | HIRE_DATE           | SALARY | COMM | DEPARTMENT_ID |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+|           3 | Arian     | Binta      | Younus      |    671 |       7839 | 2027-10-12 00:00:00 |   2850 | NULL |            30 |
+|           4 | Nusrat    | Binta      | Younus      |    671 |       7839 | 2023-12-29 00:00:00 |   2750 | NULL |            30 |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+2 rows in set (0.000 sec)
+
+MariaDB [queries_1]> select * from employees order by salary desc;
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+| EMPLOYEE_ID | LAST_NAME | FIRST_NAME | MIDDLE_NAME | JOB_ID | MANAGER_ID | HIRE_DATE           | SALARY | COMM | DEPARTMENT_ID |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+|           3 | Arian     | Binta      | Younus      |    671 |       7839 | 2027-10-12 00:00:00 |   2850 | NULL |            30 |
+|           4 | Nusrat    | Binta      | Younus      |    671 |       7839 | 2023-12-29 00:00:00 |   2750 | NULL |            30 |
+|           5 | Nazmun    | Nahar      | Moon        |    671 |       7839 | 2029-11-23 00:00:00 |   2200 | NULL |            40 |
+|           2 | Israt     | Binta      | Younus      |    670 |       7698 | 2021-09-01 00:00:00 |   1600 |  300 |            30 |
+|           6 | younus    | Ali        | Khoka       |    670 |       7698 | 2020-12-29 00:00:00 |   1250 | NULL |            40 |
+|           1 | Saima     | Binta      | Younus      |    667 |       7902 | 2021-12-01 00:00:00 |    800 | NULL |            20 |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+6 rows in set (0.001 sec)
+
+MariaDB [queries_1]> select distinct(department_id) from employees;
++---------------+
+| department_id |
++---------------+
+|            20 |
+|            30 |
+|            40 |
++---------------+
+3 rows in set (0.001 sec)
+
+MariaDB [queries_1]> select distinct(department_id), count(*) from employees;
++---------------+----------+
+| department_id | count(*) |
++---------------+----------+
+|            20 |        6 |
++---------------+----------+
+1 row in set (0.001 sec)
+
+MariaDB [queries_1]> select department_id, count(*) from employees group by department_id;
++---------------+----------+
+| department_id | count(*) |
++---------------+----------+
+|            20 |        1 |
+|            30 |        3 |
+|            40 |        2 |
++---------------+----------+
+3 rows in set (0.001 sec)
+
+MariaDB [queries_1]> select department_id, count(*) from employees group by department_id desc;
++---------------+----------+
+| department_id | count(*) |
++---------------+----------+
+|            40 |        2 |
+|            30 |        3 |
+|            20 |        1 |
++---------------+----------+
+3 rows in set (0.001 sec)
+
+MariaDB [queries_1]> select department_id, count(*) desc from employees group by department_id desc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'desc from employees group by department_id desc' at line 1
+MariaDB [queries_1]> select department_id, count(*) from employees group by department_id desc;
++---------------+----------+
+| department_id | count(*) |
++---------------+----------+
+|            40 |        2 |
+|            30 |        3 |
+|            20 |        1 |
++---------------+----------+
+3 rows in set (0.001 sec)
+
+MariaDB [queries_1]> select department_id,count(*) from employees group by department_id having count(*)=>3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '>3' at line 1
+MariaDB [queries_1]> select department_id,count(*) from employees group by department_id having count(*)>=3;
++---------------+----------+
+| department_id | count(*) |
++---------------+----------+
+|            30 |        3 |
++---------------+----------+
+1 row in set (0.001 sec)
+
+MariaDB [queries_1]> select max(salary), first_name from employees;
++-------------+------------+
+| max(salary) | first_name |
++-------------+------------+
+|        2850 | Binta      |
++-------------+------------+
+1 row in set (0.001 sec)
+
+MariaDB [queries_1]> select * from employee where salary = (salary max(salary) from employee);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'max(salary) from employee)' at line 1
+MariaDB [queries_1]> select * from employee where salary = max(salary) from employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'from employee' at line 1
+MariaDB [queries_1]> select * from employees where salary = max(salary) from employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'from employee' at line 1
+MariaDB [queries_1]> select * from employees where salary = max(salary) from employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'from employees' at line 1
+MariaDB [queries_1]> select max(salary), first_name, last_name from employees;
++-------------+------------+-----------+
+| max(salary) | first_name | last_name |
++-------------+------------+-----------+
+|        2850 | Binta      | Saima     |
++-------------+------------+-----------+
+1 row in set (0.001 sec)
+
+MariaDB [queries_1]> select department_id from employees where department_id = select department_id from department where name = "sales";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'select department_id from department where name = "sales"' at line 1
+MariaDB [queries_1]> select department_id from employees where department_id = select department_id from department where name = 'sales';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'select department_id from department where name = 'sales'' at line 1
+MariaDB [queries_1]> select * from employees where department_id = (select department_id from department where name = 'sales');
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+| EMPLOYEE_ID | LAST_NAME | FIRST_NAME | MIDDLE_NAME | JOB_ID | MANAGER_ID | HIRE_DATE           | SALARY | COMM | DEPARTMENT_ID |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+|           2 | Israt     | Binta      | Younus      |    670 |       7698 | 2021-09-01 00:00:00 |   1600 |  300 |            30 |
+|           3 | Arian     | Binta      | Younus      |    671 |       7839 | 2027-10-12 00:00:00 |   2850 | NULL |            30 |
+|           4 | Nusrat    | Binta      | Younus      |    671 |       7839 | 2023-12-29 00:00:00 |   2750 | NULL |            30 |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+3 rows in set (0.001 sec)
+
+MariaDB [queries_1]> select department_id from employees where department_id = (select department_id from department where name = 'sales');
++---------------+
+| department_id |
++---------------+
+|            30 |
+|            30 |
+|            30 |
++---------------+
+3 rows in set (0.003 sec)
+
+MariaDB [queries_1]> select * from employees where department_id = (select department_id from department where location_id = (select location_id from location where name = ''New York'));
+    '> ;
+    '> );
+    '> exit
+    '> ggjhgjhgjhgj;
+    '> select * from employees where department_id = (select department_id from department where location_id = (select location_id from location where name = ''New York'));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'New York'));
+;
+);
+exit
+ggjhgjhgjhgj;
+select * from employees where department...' at line 1
+MariaDB [queries_1]> select * from employees where department_id = (select department_id from department where location_id = (select location_id from location where name = 'New York'));
+Empty set (0.004 sec)
+
+MariaDB [queries_1]> select * from employees where department_id = (select department_id from department where location_id = (select location_id from location where regional_group = 'New York'));
+Empty set (0.001 sec)
+
+MariaDB [queries_1]> select * from employees where department_id = (select department_id from department where location_id = (select location_id from location where regional_group = 'DALLAS'));
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+| EMPLOYEE_ID | LAST_NAME | FIRST_NAME | MIDDLE_NAME | JOB_ID | MANAGER_ID | HIRE_DATE           | SALARY | COMM | DEPARTMENT_ID |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+|           2 | Israt     | Binta      | Younus      |    670 |       7698 | 2021-09-01 00:00:00 |   1600 |  300 |            30 |
+|           3 | Arian     | Binta      | Younus      |    671 |       7839 | 2027-10-12 00:00:00 |   2850 | NULL |            30 |
+|           4 | Nusrat    | Binta      | Younus      |    671 |       7839 | 2023-12-29 00:00:00 |   2750 | NULL |            30 |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+3 rows in set (0.001 sec)
+
+MariaDB [queries_1]> update employees set salary = salary*10/100 where job_id = '671';
+Query OK, 3 rows affected (0.003 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+MariaDB [queries_1]> select * from employees;
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+| EMPLOYEE_ID | LAST_NAME | FIRST_NAME | MIDDLE_NAME | JOB_ID | MANAGER_ID | HIRE_DATE           | SALARY | COMM | DEPARTMENT_ID |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+|           1 | Saima     | Binta      | Younus      |    667 |       7902 | 2021-12-01 00:00:00 |    800 | NULL |            20 |
+|           2 | Israt     | Binta      | Younus      |    670 |       7698 | 2021-09-01 00:00:00 |   1600 |  300 |            30 |
+|           3 | Arian     | Binta      | Younus      |    671 |       7839 | 2027-10-12 00:00:00 |    285 | NULL |            30 |
+|           4 | Nusrat    | Binta      | Younus      |    671 |       7839 | 2023-12-29 00:00:00 |    275 | NULL |            30 |
+|           5 | Nazmun    | Nahar      | Moon        |    671 |       7839 | 2029-11-23 00:00:00 |    220 | NULL |            40 |
+|           6 | younus    | Ali        | Khoka       |    670 |       7698 | 2020-12-29 00:00:00 |   1250 | NULL |            40 |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+6 rows in set (0.000 sec)
+
+MariaDB [queries_1]> update employees set salary = salary*10/100 where job_id = (select job_id from job where function = 'MANAGER');
+Query OK, 3 rows affected (0.002 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+MariaDB [queries_1]> select * from employees;
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+| EMPLOYEE_ID | LAST_NAME | FIRST_NAME | MIDDLE_NAME | JOB_ID | MANAGER_ID | HIRE_DATE           | SALARY | COMM | DEPARTMENT_ID |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+|           1 | Saima     | Binta      | Younus      |    667 |       7902 | 2021-12-01 00:00:00 |    800 | NULL |            20 |
+|           2 | Israt     | Binta      | Younus      |    670 |       7698 | 2021-09-01 00:00:00 |   1600 |  300 |            30 |
+|           3 | Arian     | Binta      | Younus      |    671 |       7839 | 2027-10-12 00:00:00 |     29 | NULL |            30 |
+|           4 | Nusrat    | Binta      | Younus      |    671 |       7839 | 2023-12-29 00:00:00 |     28 | NULL |            30 |
+|           5 | Nazmun    | Nahar      | Moon        |    671 |       7839 | 2029-11-23 00:00:00 |     22 | NULL |            40 |
+|           6 | younus    | Ali        | Khoka       |    670 |       7698 | 2020-12-29 00:00:00 |   1250 | NULL |            40 |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+6 rows in set (0.000 sec)
+
+MariaDB [queries_1]> update employees set salary = (salary*10)/100 where job_id = '671';
+Query OK, 3 rows affected (0.002 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+MariaDB [queries_1]> select * from employees;
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+| EMPLOYEE_ID | LAST_NAME | FIRST_NAME | MIDDLE_NAME | JOB_ID | MANAGER_ID | HIRE_DATE           | SALARY | COMM | DEPARTMENT_ID |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+|           1 | Saima     | Binta      | Younus      |    667 |       7902 | 2021-12-01 00:00:00 |    800 | NULL |            20 |
+|           2 | Israt     | Binta      | Younus      |    670 |       7698 | 2021-09-01 00:00:00 |   1600 |  300 |            30 |
+|           3 | Arian     | Binta      | Younus      |    671 |       7839 | 2027-10-12 00:00:00 |      3 | NULL |            30 |
+|           4 | Nusrat    | Binta      | Younus      |    671 |       7839 | 2023-12-29 00:00:00 |      3 | NULL |            30 |
+|           5 | Nazmun    | Nahar      | Moon        |    671 |       7839 | 2029-11-23 00:00:00 |      2 | NULL |            40 |
+|           6 | younus    | Ali        | Khoka       |    670 |       7698 | 2020-12-29 00:00:00 |   1250 | NULL |            40 |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+6 rows in set (0.000 sec)
+
+MariaDB [queries_1]> update employees set salary = salary*10 where job_id = '671';
+Query OK, 3 rows affected (0.002 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+MariaDB [queries_1]> update employees set salary = salary*10 where job_id = '671';
+Query OK, 3 rows affected (0.003 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+MariaDB [queries_1]> select * from employees;
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+| EMPLOYEE_ID | LAST_NAME | FIRST_NAME | MIDDLE_NAME | JOB_ID | MANAGER_ID | HIRE_DATE           | SALARY | COMM | DEPARTMENT_ID |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+|           1 | Saima     | Binta      | Younus      |    667 |       7902 | 2021-12-01 00:00:00 |    800 | NULL |            20 |
+|           2 | Israt     | Binta      | Younus      |    670 |       7698 | 2021-09-01 00:00:00 |   1600 |  300 |            30 |
+|           3 | Arian     | Binta      | Younus      |    671 |       7839 | 2027-10-12 00:00:00 |    300 | NULL |            30 |
+|           4 | Nusrat    | Binta      | Younus      |    671 |       7839 | 2023-12-29 00:00:00 |    300 | NULL |            30 |
+|           5 | Nazmun    | Nahar      | Moon        |    671 |       7839 | 2029-11-23 00:00:00 |    200 | NULL |            40 |
+|           6 | younus    | Ali        | Khoka       |    670 |       7698 | 2020-12-29 00:00:00 |   1250 | NULL |            40 |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+6 rows in set (0.000 sec)
+
+MariaDB [queries_1]> update employees set salary = salary*10 where job_id = '671';
+Query OK, 3 rows affected (0.002 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+MariaDB [queries_1]> select * from employees;
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+| EMPLOYEE_ID | LAST_NAME | FIRST_NAME | MIDDLE_NAME | JOB_ID | MANAGER_ID | HIRE_DATE           | SALARY | COMM | DEPARTMENT_ID |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+|           1 | Saima     | Binta      | Younus      |    667 |       7902 | 2021-12-01 00:00:00 |    800 | NULL |            20 |
+|           2 | Israt     | Binta      | Younus      |    670 |       7698 | 2021-09-01 00:00:00 |   1600 |  300 |            30 |
+|           3 | Arian     | Binta      | Younus      |    671 |       7839 | 2027-10-12 00:00:00 |   3000 | NULL |            30 |
+|           4 | Nusrat    | Binta      | Younus      |    671 |       7839 | 2023-12-29 00:00:00 |   3000 | NULL |            30 |
+|           5 | Nazmun    | Nahar      | Moon        |    671 |       7839 | 2029-11-23 00:00:00 |   2000 | NULL |            40 |
+|           6 | younus    | Ali        | Khoka       |    670 |       7698 | 2020-12-29 00:00:00 |   1250 | NULL |            40 |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+6 rows in set (0.000 sec)
+
+MariaDB [queries_1]> delete from employees where department_id = (select department_id from department where name = 'ACCOUNTING');
+Query OK, 0 rows affected (0.002 sec)
+
+MariaDB [queries_1]> select * from employees;
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+| EMPLOYEE_ID | LAST_NAME | FIRST_NAME | MIDDLE_NAME | JOB_ID | MANAGER_ID | HIRE_DATE           | SALARY | COMM | DEPARTMENT_ID |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+|           1 | Saima     | Binta      | Younus      |    667 |       7902 | 2021-12-01 00:00:00 |    800 | NULL |            20 |
+|           2 | Israt     | Binta      | Younus      |    670 |       7698 | 2021-09-01 00:00:00 |   1600 |  300 |            30 |
+|           3 | Arian     | Binta      | Younus      |    671 |       7839 | 2027-10-12 00:00:00 |   3000 | NULL |            30 |
+|           4 | Nusrat    | Binta      | Younus      |    671 |       7839 | 2023-12-29 00:00:00 |   3000 | NULL |            30 |
+|           5 | Nazmun    | Nahar      | Moon        |    671 |       7839 | 2029-11-23 00:00:00 |   2000 | NULL |            40 |
+|           6 | younus    | Ali        | Khoka       |    670 |       7698 | 2020-12-29 00:00:00 |   1250 | NULL |            40 |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+6 rows in set (0.000 sec)
+
+MariaDB [queries_1]>
