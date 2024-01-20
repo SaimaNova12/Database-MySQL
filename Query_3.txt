@@ -1,0 +1,282 @@
+
+Setting environment for using XAMPP for Windows.
+DELL@DESKTOP-P2BVMSV c:\xampp
+# mysql -u root -h localhost
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 230
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bd_navy            |
+| example            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| queries_1          |
+| test               |
++--------------------+
+8 rows in set (0.001 sec)
+
+MariaDB [(none)]> use queries_1;
+Database changed
+MariaDB [queries_1]> create table employee
+    -> (id int,
+    -> name varchar(10),
+    -> managerid int,
+    -> doj datetime,
+    -> city varchar(10),
+    -> PRIMARY KEY(id)
+    -> );
+Query OK, 0 rows affected (0.018 sec)
+
+MariaDB [queries_1]> select * from employee;
+Empty set (0.005 sec)
+
+MariaDB [queries_1]> describe employee;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| id        | int(11)     | NO   | PRI | NULL    |       |
+| name      | varchar(10) | YES  |     | NULL    |       |
+| managerid | int(11)     | YES  |     | NULL    |       |
+| doj       | datetime    | YES  |     | NULL    |       |
+| city      | varchar(10) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.013 sec)
+
+MariaDB [queries_1]> create table salary
+    -> (sid int,
+    -> sproject varchar(10),
+    -> salary int,
+    -> variable int,
+    -> primary key(sid)
+    -> );
+Query OK, 0 rows affected (0.010 sec)
+
+MariaDB [queries_1]> describe salary;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| sid      | int(11)     | NO   | PRI | NULL    |       |
+| sproject | varchar(10) | YES  |     | NULL    |       |
+| salary   | int(11)     | YES  |     | NULL    |       |
+| variable | int(11)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.013 sec)
+
+MariaDB [queries_1]> INSERT INTO Employee VALUES
+    -> (121, 'John', 321, '1/31/2016', 'hyd'),
+    ->     (321, 'David', 986, '1/30/2018', 'Chennai'),
+    ->     (421, 'Scott', 876, '27/11/2020', 'Mumbai');
+Query OK, 3 rows affected, 3 warnings (0.005 sec)
+Records: 3  Duplicates: 0  Warnings: 3
+
+MariaDB [queries_1]> select * from employee;
++-----+-------+-----------+---------------------+---------+
+| id  | name  | managerid | doj                 | city    |
++-----+-------+-----------+---------------------+---------+
+| 121 | John  |       321 | 0000-00-00 00:00:00 | hyd     |
+| 321 | David |       986 | 0000-00-00 00:00:00 | Chennai |
+| 421 | Scott |       876 | 0000-00-00 00:00:00 | Mumbai  |
++-----+-------+-----------+---------------------+---------+
+3 rows in set (0.000 sec)
+
+MariaDB [queries_1]> update employee set doj = '2024/02/12' where id = 121;
+Query OK, 1 row affected (0.002 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [queries_1]> select * from employee;
++-----+-------+-----------+---------------------+---------+
+| id  | name  | managerid | doj                 | city    |
++-----+-------+-----------+---------------------+---------+
+| 121 | John  |       321 | 2024-02-12 00:00:00 | hyd     |
+| 321 | David |       986 | 0000-00-00 00:00:00 | Chennai |
+| 421 | Scott |       876 | 0000-00-00 00:00:00 | Mumbai  |
++-----+-------+-----------+---------------------+---------+
+3 rows in set (0.000 sec)
+
+MariaDB [queries_1]> update employee set doj = '2021/02/10' where id = 321;
+Query OK, 1 row affected (0.003 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [queries_1]> update employee set doj = '2021/02/01' where id = 421;
+Query OK, 1 row affected (0.002 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [queries_1]> select * from employee;
++-----+-------+-----------+---------------------+---------+
+| id  | name  | managerid | doj                 | city    |
++-----+-------+-----------+---------------------+---------+
+| 121 | John  |       321 | 2024-02-12 00:00:00 | hyd     |
+| 321 | David |       986 | 2021-02-10 00:00:00 | Chennai |
+| 421 | Scott |       876 | 2021-02-01 00:00:00 | Mumbai  |
++-----+-------+-----------+---------------------+---------+
+3 rows in set (0.000 sec)
+
+MariaDB [queries_1]>
+MariaDB [queries_1]> INSERT INTO Salary VALUES
+    ->     (121, 'P1', 20000, 0),
+    ->     (321, 'P2', 35000, 1000),
+    ->     (421, 'P1', 50000, 3000);
+Query OK, 3 rows affected (0.002 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [queries_1]> select * from salary;
++-----+----------+--------+----------+
+| sid | sproject | salary | variable |
++-----+----------+--------+----------+
+| 121 | P1       |  20000 |        0 |
+| 321 | P2       |  35000 |     1000 |
+| 421 | P1       |  50000 |     3000 |
++-----+----------+--------+----------+
+3 rows in set (0.000 sec)
+
+MariaDB [queries_1]> select * from employee;
++-----+-------+-----------+---------------------+---------+
+| id  | name  | managerid | doj                 | city    |
++-----+-------+-----------+---------------------+---------+
+| 121 | John  |       321 | 2024-02-12 00:00:00 | hyd     |
+| 321 | David |       986 | 2021-02-10 00:00:00 | Chennai |
+| 421 | Scott |       876 | 2021-02-01 00:00:00 | Mumbai  |
++-----+-------+-----------+---------------------+---------+
+3 rows in set (0.001 sec)
+
+MariaDB [queries_1]> select id, name where managerid = 86;
+ERROR 1054 (42S22): Unknown column 'id' in 'field list'
+MariaDB [queries_1]> select id, name where managerid = 986;
+ERROR 1054 (42S22): Unknown column 'id' in 'field list'
+MariaDB [queries_1]> select id, name from employee where managerid = 986;
++-----+-------+
+| id  | name  |
++-----+-------+
+| 321 | David |
++-----+-------+
+1 row in set (0.001 sec)
+
+MariaDB [queries_1]> select distinct(sproject) from salary;
++----------+
+| sproject |
++----------+
+| P1       |
+| P2       |
++----------+
+2 rows in set (0.001 sec)
+
+MariaDB [queries_1]> select count(sproject) from salary where project = P1;
+ERROR 1054 (42S22): Unknown column 'project' in 'where clause'
+MariaDB [queries_1]> select count(sproject) from salary where sproject = P1;
+ERROR 1054 (42S22): Unknown column 'P1' in 'where clause'
+MariaDB [queries_1]> select count(sproject) from salary where sproject = "P1";
++-----------------+
+| count(sproject) |
++-----------------+
+|               2 |
++-----------------+
+1 row in set (0.001 sec)
+
+MariaDB [queries_1]> select max(salary), min(salary), avg(salary) from salary;
++-------------+-------------+-------------+
+| max(salary) | min(salary) | avg(salary) |
++-------------+-------------+-------------+
+|       50000 |       20000 |  35000.0000 |
++-------------+-------------+-------------+
+1 row in set (0.002 sec)
+
+MariaDB [queries_1]> select sid from salary where salary between 30000 and 40000;
++-----+
+| sid |
++-----+
+| 321 |
++-----+
+1 row in set (0.000 sec)
+
+MariaDB [queries_1]> select * from employee where city = "Chennai" and managerid = 986;
++-----+-------+-----------+---------------------+---------+
+| id  | name  | managerid | doj                 | city    |
++-----+-------+-----------+---------------------+---------+
+| 321 | David |       986 | 2021-02-10 00:00:00 | Chennai |
++-----+-------+-----------+---------------------+---------+
+1 row in set (0.001 sec)
+
+MariaDB [queries_1]> select * from employee where city = "Chennai" or managerid = 321;;
++-----+-------+-----------+---------------------+---------+
+| id  | name  | managerid | doj                 | city    |
++-----+-------+-----------+---------------------+---------+
+| 121 | John  |       321 | 2024-02-12 00:00:00 | hyd     |
+| 321 | David |       986 | 2021-02-10 00:00:00 | Chennai |
++-----+-------+-----------+---------------------+---------+
+2 rows in set (0.001 sec)
+
+ERROR: No query specified
+
+MariaDB [queries_1]> select * from salary where where project != 'P1';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where project != 'P1'' at line 1
+MariaDB [queries_1]> select * from salary where project != 'P1';
+ERROR 1054 (42S22): Unknown column 'project' in 'where clause'
+MariaDB [queries_1]> select * from salary where sproject != 'P1';
++-----+----------+--------+----------+
+| sid | sproject | salary | variable |
++-----+----------+--------+----------+
+| 321 | P2       |  35000 |     1000 |
++-----+----------+--------+----------+
+1 row in set (0.000 sec)
+
+MariaDB [queries_1]> select count(*) from salary where sproject != 'P1';
++----------+
+| count(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.000 sec)
+
+MariaDB [queries_1]> select * from salary where as total = salary + variable;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'as total = salary + variable' at line 1
+MariaDB [queries_1]> select salary+variable as totalsalary, * from salary;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* from salary' at line 1
+MariaDB [queries_1]> select salary+variable as totalsalary from salary;
++-------------+
+| totalsalary |
++-------------+
+|       20000 |
+|       36000 |
+|       53000 |
++-------------+
+3 rows in set (0.000 sec)
+
+MariaDB [queries_1]> select salary+variable as totalsalary, sid, sproject from salary;
++-------------+-----+----------+
+| totalsalary | sid | sproject |
++-------------+-----+----------+
+|       20000 | 121 | P1       |
+|       36000 | 321 | P2       |
+|       53000 | 421 | P1       |
++-------------+-----+----------+
+3 rows in set (0.000 sec)
+
+MariaDB [queries_1]> select * from employee;
++-----+-------+-----------+---------------------+---------+
+| id  | name  | managerid | doj                 | city    |
++-----+-------+-----------+---------------------+---------+
+| 121 | John  |       321 | 2024-02-12 00:00:00 | hyd     |
+| 321 | David |       986 | 2021-02-10 00:00:00 | Chennai |
+| 421 | Scott |       876 | 2021-02-01 00:00:00 | Mumbai  |
++-----+-------+-----------+---------------------+---------+
+3 rows in set (0.000 sec)
+
+MariaDB [queries_1]> select * from employee where name like '%h%';
++-----+------+-----------+---------------------+------+
+| id  | name | managerid | doj                 | city |
++-----+------+-----------+---------------------+------+
+| 121 | John |       321 | 2024-02-12 00:00:00 | hyd  |
++-----+------+-----------+---------------------+------+
+1 row in set (0.000 sec)
+
+MariaDB [queries_1]>
