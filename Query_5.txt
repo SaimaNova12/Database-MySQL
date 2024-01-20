@@ -1,0 +1,213 @@
+
+Setting environment for using XAMPP for Windows.
+DELL@DESKTOP-P2BVMSV c:\xampp
+# mysql -u root -h localhost
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 233
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bd_navy            |
+| example            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| queries_1          |
+| test               |
++--------------------+
+8 rows in set (0.001 sec)
+
+MariaDB [(none)]> use queries_1;
+Database changed
+MariaDB [queries_1]> CREATE TABLE EMPLOYEE (
+    ->     EID INT,
+    ->     ENAME varchar(255),
+    ->     SALARY INT,
+    ->     PRIMARY KEY (EID)
+    -> );
+ERROR 1050 (42S01): Table 'employee' already exists
+MariaDB [queries_1]> CREATE TABLE workers (
+    ->     EID INT,
+    ->     ENAME varchar(255),
+    ->     SALARY INT,
+    ->     PRIMARY KEY (EID));
+Query OK, 0 rows affected (0.012 sec)
+
+MariaDB [queries_1]> describe workers;
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| EID    | int(11)      | NO   | PRI | NULL    |       |
+| ENAME  | varchar(255) | YES  |     | NULL    |       |
+| SALARY | int(11)      | YES  |     | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+3 rows in set (0.014 sec)
+
+MariaDB [queries_1]> INSERT INTO workers VALUES
+    ->     (101, 'AMIT', 20000),
+    ->     (102, 'DAVID', 30000),
+    ->     (103, 'BHASKAR', 25000),
+    ->     (104, 'SMITH', 28000),
+    ->     (105, 'JOHN', 15000);
+Query OK, 5 rows affected (0.002 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [queries_1]> select * from workers;
++-----+---------+--------+
+| EID | ENAME   | SALARY |
++-----+---------+--------+
+| 101 | AMIT    |  20000 |
+| 102 | DAVID   |  30000 |
+| 103 | BHASKAR |  25000 |
+| 104 | SMITH   |  28000 |
+| 105 | JOHN    |  15000 |
++-----+---------+--------+
+5 rows in set (0.000 sec)
+
+MariaDB [queries_1]> select Max(salary) from workers;
++-------------+
+| Max(salary) |
++-------------+
+|       30000 |
++-------------+
+1 row in set (0.000 sec)
+
+MariaDB [queries_1]> select salary from employee order by salary;
+ERROR 1054 (42S22): Unknown column 'salary' in 'field list'
+MariaDB [queries_1]> select salary from workers order by salary;
++--------+
+| salary |
++--------+
+|  15000 |
+|  20000 |
+|  25000 |
+|  28000 |
+|  30000 |
++--------+
+5 rows in set (0.000 sec)
+
+MariaDB [queries_1]> select salary from workers order by salary desc;
++--------+
+| salary |
++--------+
+|  30000 |
+|  28000 |
+|  25000 |
+|  20000 |
+|  15000 |
++--------+
+5 rows in set (0.000 sec)
+
+MariaDB [queries_1]> select Max(salary) from workers where salary<(select Max(salary) from workers);
++-------------+
+| Max(salary) |
++-------------+
+|       28000 |
++-------------+
+1 row in set (0.001 sec)
+
+MariaDB [queries_1]> select MAX(salary) FROM workers WHERE salary < (select max(salary) FROM workers where salary < (SELECT MAX(SALARY) FROM workers));
++-------------+
+| MAX(salary) |
++-------------+
+|       25000 |
++-------------+
+1 row in set (0.001 sec)
+
+MariaDB [queries_1]> create table new_workers as select * from workers where 1=0;
+Query OK, 0 rows affected (0.011 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [queries_1]> describe new_workers;
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| EID    | int(11)      | NO   |     | NULL    |       |
+| ENAME  | varchar(255) | YES  |     | NULL    |       |
+| SALARY | int(11)      | YES  |     | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+3 rows in set (0.012 sec)
+
+MariaDB [queries_1]> select * into new_table from workers where 1=0;
+ERROR 1327 (42000): Undeclared variable: new_table
+MariaDB [queries_1]> select * into new_table from new_workers where 1=0;
+ERROR 1327 (42000): Undeclared variable: new_table
+MariaDB [queries_1]> create table new_workers as select * from workers where 1=0;
+ERROR 1050 (42S01): Table 'new_workers' already exists
+MariaDB [queries_1]> describe new_workers;
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| EID    | int(11)      | NO   |     | NULL    |       |
+| ENAME  | varchar(255) | YES  |     | NULL    |       |
+| SALARY | int(11)      | YES  |     | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+3 rows in set (0.012 sec)
+
+MariaDB [queries_1]> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2024-01-20 20:42:59 |
++---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [queries_1]> select curdate();
++------------+
+| curdate()  |
++------------+
+| 2024-01-20 |
++------------+
+1 row in set (0.001 sec)
+
+MariaDB [queries_1]> select department_id from employees union select department_id from departments;
+ERROR 1146 (42S02): Table 'queries_1.departments' doesn't exist
+MariaDB [queries_1]> select department_id from employees union select department_id from department;
++---------------+
+| department_id |
++---------------+
+|            20 |
+|            30 |
+|            40 |
+|            10 |
++---------------+
+4 rows in set (0.001 sec)
+
+MariaDB [queries_1]> select * from employees union select * from department;
+ERROR 1222 (21000): The used SELECT statements have a different number of columns
+MariaDB [queries_1]> select department_id from employees union all select department_id from department;
++---------------+
+| department_id |
++---------------+
+|            20 |
+|            30 |
+|            30 |
+|            30 |
+|            40 |
+|            40 |
+|            10 |
+|            20 |
+|            30 |
+|            40 |
++---------------+
+10 rows in set (0.001 sec)
+
+MariaDB [queries_1]> select department_id from employees intersect select department_id from department;
++---------------+
+| department_id |
++---------------+
+|            20 |
+|            30 |
+|            40 |
++---------------+
+3 rows in set (0.000 sec)
+
+MariaDB [queries_1]>
