@@ -1,0 +1,295 @@
+
+Setting environment for using XAMPP for Windows.
+DELL@DESKTOP-P2BVMSV c:\xampp
+# mysql -u root -h localhost
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 142
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database Queries_1;
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [(none)]> use Queries_1;
+Database changed
+MariaDB [Queries_1]> create table sailor
+    -> (ID int,
+    -> Name varchar(10),
+    -> Rating int,
+    -> Age float
+    -> );
+Query OK, 0 rows affected (0.013 sec)
+
+MariaDB [Queries_1]> insert into sailor values(01,"Saima", 5, 24.5),(02, "Nova", 4, 22.7);
+Query OK, 2 rows affected (0.004 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [Queries_1]> insert into sailor values(03,"Nazmum", 5, 55),(04, "Younus", 4, 63.7);
+Query OK, 2 rows affected (0.003 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [Queries_1]> insert into sailor values(05,"Aurni", 5, 08),(06, "Zara", 4, 7);
+Query OK, 2 rows affected (0.002 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [Queries_1]> select * from sailor;
++------+--------+--------+------+
+| ID   | Name   | Rating | Age  |
++------+--------+--------+------+
+|    1 | Saima  |      5 | 24.5 |
+|    2 | Nova   |      4 | 22.7 |
+|    3 | Nazmum |      5 |   55 |
+|    4 | Younus |      4 | 63.7 |
+|    5 | Aurni  |      5 |    8 |
+|    6 | Zara   |      4 |    7 |
++------+--------+--------+------+
+6 rows in set (0.000 sec)
+
+MariaDB [Queries_1]> update sailor
+    -> set Rating = 5 where ID = 2;
+Query OK, 1 row affected (0.003 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [Queries_1]> update sailor set name = "Umme" where ID = 6;
+Query OK, 1 row affected (0.002 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [Queries_1]> select * from sailor;
++------+--------+--------+------+
+| ID   | Name   | Rating | Age  |
++------+--------+--------+------+
+|    1 | Saima  |      5 | 24.5 |
+|    2 | Nova   |      5 | 22.7 |
+|    3 | Nazmum |      5 |   55 |
+|    4 | Younus |      4 | 63.7 |
+|    5 | Aurni  |      5 |    8 |
+|    6 | Umme   |      4 |    7 |
++------+--------+--------+------+
+6 rows in set (0.000 sec)
+
+MariaDB [Queries_1]> update sailor set Rating = 3, Age = 50 where ID = 4;
+Query OK, 1 row affected (0.002 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [Queries_1]> select * from sailor
+    -> ;
++------+--------+--------+------+
+| ID   | Name   | Rating | Age  |
++------+--------+--------+------+
+|    1 | Saima  |      5 | 24.5 |
+|    2 | Nova   |      5 | 22.7 |
+|    3 | Nazmum |      5 |   55 |
+|    4 | Younus |      3 |   50 |
+|    5 | Aurni  |      5 |    8 |
+|    6 | Umme   |      4 |    7 |
++------+--------+--------+------+
+6 rows in set (0.001 sec)
+
+MariaDB [Queries_1]> select Rating from sailor;
++--------+
+| Rating |
++--------+
+|      5 |
+|      5 |
+|      5 |
+|      3 |
+|      5 |
+|      4 |
++--------+
+6 rows in set (0.000 sec)
+
+MariaDB [Queries_1]> select distinct(rating)from sailor;
++--------+
+| rating |
++--------+
+|      5 |
+|      3 |
+|      4 |
++--------+
+3 rows in set (0.001 sec)
+
+MariaDB [Queries_1]> select distinct(name) from sailor;
++--------+
+| name   |
++--------+
+| Saima  |
+| Nova   |
+| Nazmum |
+| Younus |
+| Aurni  |
+| Umme   |
++--------+
+6 rows in set (0.001 sec)
+
+MariaDB [Queries_1]> select name, distint(rating) from sailor;
+ERROR 1305 (42000): FUNCTION queries_1.distint does not exist
+MariaDB [Queries_1]> select distint(rating),name from sailor;
+ERROR 1305 (42000): FUNCTION queries_1.distint does not exist
+MariaDB [Queries_1]> select disticnt(rating),name from sailor;
+ERROR 1305 (42000): FUNCTION queries_1.disticnt does not exist
+MariaDB [Queries_1]> select distinct(rating),name from sailor;
++--------+--------+
+| rating | name   |
++--------+--------+
+|      5 | Saima  |
+|      5 | Nova   |
+|      5 | Nazmum |
+|      3 | Younus |
+|      5 | Aurni  |
+|      4 | Umme   |
++--------+--------+
+6 rows in set (0.001 sec)
+
+MariaDB [Queries_1]> select name, distinct(age) from sailor;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'distinct(age) from sailor' at line 1
+MariaDB [Queries_1]> select distinct(age),name from sailor;
++------+--------+
+| age  | name   |
++------+--------+
+| 24.5 | Saima  |
+| 22.7 | Nova   |
+|   55 | Nazmum |
+|   50 | Younus |
+|    8 | Aurni  |
+|    7 | Umme   |
++------+--------+
+6 rows in set (0.001 sec)
+
+MariaDB [Queries_1]> select id from sailor order by id;
++------+
+| id   |
++------+
+|    1 |
+|    2 |
+|    3 |
+|    4 |
+|    5 |
+|    6 |
++------+
+6 rows in set (0.000 sec)
+
+MariaDB [Queries_1]> select id from sailor order by id desc;
++------+
+| id   |
++------+
+|    6 |
+|    5 |
+|    4 |
+|    3 |
+|    2 |
+|    1 |
++------+
+6 rows in set (0.000 sec)
+
+MariaDB [Queries_1]> select * from sailor order by id desc;
++------+--------+--------+------+
+| ID   | Name   | Rating | Age  |
++------+--------+--------+------+
+|    6 | Umme   |      4 |    7 |
+|    5 | Aurni  |      5 |    8 |
+|    4 | Younus |      3 |   50 |
+|    3 | Nazmum |      5 |   55 |
+|    2 | Nova   |      5 | 22.7 |
+|    1 | Saima  |      5 | 24.5 |
++------+--------+--------+------+
+6 rows in set (0.001 sec)
+
+MariaDB [Queries_1]> select * from sailor order by id asc;
++------+--------+--------+------+
+| ID   | Name   | Rating | Age  |
++------+--------+--------+------+
+|    1 | Saima  |      5 | 24.5 |
+|    2 | Nova   |      5 | 22.7 |
+|    3 | Nazmum |      5 |   55 |
+|    4 | Younus |      3 |   50 |
+|    5 | Aurni  |      5 |    8 |
+|    6 | Umme   |      4 |    7 |
++------+--------+--------+------+
+6 rows in set (0.000 sec)
+
+MariaDB [Queries_1]> select * from sailor where name like 'Sa%';
++------+-------+--------+------+
+| ID   | Name  | Rating | Age  |
++------+-------+--------+------+
+|    1 | Saima |      5 | 24.5 |
++------+-------+--------+------+
+1 row in set (0.000 sec)
+
+MariaDB [Queries_1]> select * from sailor where name like '%i%';
++------+-------+--------+------+
+| ID   | Name  | Rating | Age  |
++------+-------+--------+------+
+|    1 | Saima |      5 | 24.5 |
+|    5 | Aurni |      5 |    8 |
++------+-------+--------+------+
+2 rows in set (0.000 sec)
+
+MariaDB [Queries_1]> select max(age), min(age), sum(age) from sailor;
++----------+----------+--------------------+
+| max(age) | min(age) | sum(age)           |
++----------+----------+--------------------+
+|       55 |        7 | 167.20000076293945 |
++----------+----------+--------------------+
+1 row in set (0.001 sec)
+
+MariaDB [Queries_1]> select count(*) from sailor;
++----------+
+| count(*) |
++----------+
+|        6 |
++----------+
+1 row in set (0.000 sec)
+
+MariaDB [Queries_1]> select count(id) from sailor;
++-----------+
+| count(id) |
++-----------+
+|         6 |
++-----------+
+1 row in set (0.000 sec)
+
+MariaDB [Queries_1]> select * from sailor where id in(1,2,3,4);
++------+--------+--------+------+
+| ID   | Name   | Rating | Age  |
++------+--------+--------+------+
+|    1 | Saima  |      5 | 24.5 |
+|    2 | Nova   |      5 | 22.7 |
+|    3 | Nazmum |      5 |   55 |
+|    4 | Younus |      3 |   50 |
++------+--------+--------+------+
+4 rows in set (0.001 sec)
+
+MariaDB [Queries_1]> select * from sailor where id(1,2,3) and rating>3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(1,2,3) and rating>3' at line 1
+MariaDB [Queries_1]> select * from sailor where id in(1,2,3) & rating>3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '& rating>3' at line 1
+MariaDB [Queries_1]> select * from sailor where id in(1,2,3) and rating>3;
++------+--------+--------+------+
+| ID   | Name   | Rating | Age  |
++------+--------+--------+------+
+|    1 | Saima  |      5 | 24.5 |
+|    2 | Nova   |      5 | 22.7 |
+|    3 | Nazmum |      5 |   55 |
++------+--------+--------+------+
+3 rows in set (0.001 sec)
+
+MariaDB [Queries_1]> select * from sailor where rating between 1 and 3;
++------+--------+--------+------+
+| ID   | Name   | Rating | Age  |
++------+--------+--------+------+
+|    4 | Younus |      3 |   50 |
++------+--------+--------+------+
+1 row in set (0.000 sec)
+
+MariaDB [Queries_1]> select * from sailor where rating between 1 and 3 order by id asc;
++------+--------+--------+------+
+| ID   | Name   | Rating | Age  |
++------+--------+--------+------+
+|    4 | Younus |      3 |   50 |
++------+--------+--------+------+
+1 row in set (0.000 sec)
+
+MariaDB [Queries_1]>

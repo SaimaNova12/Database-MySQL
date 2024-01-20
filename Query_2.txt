@@ -1,0 +1,204 @@
+
+Setting environment for using XAMPP for Windows.
+DELL@DESKTOP-P2BVMSV c:\xampp
+# mysql -u root -h localhost
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 225
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bd_navy            |
+| example            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| queries_1          |
+| test               |
++--------------------+
+8 rows in set (0.001 sec)
+
+MariaDB [(none)]> use queries_1;
+Database changed
+MariaDB [queries_1]> show table;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [queries_1]> create table sailor;
+ERROR 1050 (42S01): Table 'sailor' already exists
+MariaDB [queries_1]> select * from sailor;
++------+--------+--------+------+
+| ID   | Name   | Rating | Age  |
++------+--------+--------+------+
+|    1 | Saima  |      5 | 24.5 |
+|    2 | Nova   |      5 | 22.7 |
+|    3 | Nazmum |      5 |   55 |
+|    4 | Younus |      3 |   50 |
+|    5 | Aurni  |      5 |    8 |
+|    6 | Umme   |      4 |    7 |
++------+--------+--------+------+
+6 rows in set (0.000 sec)
+
+MariaDB [queries_1]> select * from sailor where id in(1,2,3,4,5);
++------+--------+--------+------+
+| ID   | Name   | Rating | Age  |
++------+--------+--------+------+
+|    1 | Saima  |      5 | 24.5 |
+|    2 | Nova   |      5 | 22.7 |
+|    3 | Nazmum |      5 |   55 |
+|    4 | Younus |      3 |   50 |
+|    5 | Aurni  |      5 |    8 |
++------+--------+--------+------+
+5 rows in set (0.001 sec)
+
+MariaDB [queries_1]> select * from sailor order by rating;
++------+--------+--------+------+
+| ID   | Name   | Rating | Age  |
++------+--------+--------+------+
+|    4 | Younus |      3 |   50 |
+|    6 | Umme   |      4 |    7 |
+|    1 | Saima  |      5 | 24.5 |
+|    2 | Nova   |      5 | 22.7 |
+|    3 | Nazmum |      5 |   55 |
+|    5 | Aurni  |      5 |    8 |
++------+--------+--------+------+
+6 rows in set (0.000 sec)
+
+MariaDB [queries_1]> select * from sailor order by rating limit 4;
++------+--------+--------+------+
+| ID   | Name   | Rating | Age  |
++------+--------+--------+------+
+|    4 | Younus |      3 |   50 |
+|    6 | Umme   |      4 |    7 |
+|    2 | Nova   |      5 | 22.7 |
+|    3 | Nazmum |      5 |   55 |
++------+--------+--------+------+
+4 rows in set (0.000 sec)
+
+MariaDB [queries_1]> alter table sailor rename to NewSailor;
+Query OK, 0 rows affected (0.010 sec)
+
+MariaDB [queries_1]> select * from newsailor;
++------+--------+--------+------+
+| ID   | Name   | Rating | Age  |
++------+--------+--------+------+
+|    1 | Saima  |      5 | 24.5 |
+|    2 | Nova   |      5 | 22.7 |
+|    3 | Nazmum |      5 |   55 |
+|    4 | Younus |      3 |   50 |
+|    5 | Aurni  |      5 |    8 |
+|    6 | Umme   |      4 |    7 |
++------+--------+--------+------+
+6 rows in set (0.002 sec)
+
+MariaDB [queries_1]> alter table newsailor add email varchar(10);
+Query OK, 0 rows affected (0.009 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [queries_1]> select * from newsailor;
++------+--------+--------+------+-------+
+| ID   | Name   | Rating | Age  | email |
++------+--------+--------+------+-------+
+|    1 | Saima  |      5 | 24.5 | NULL  |
+|    2 | Nova   |      5 | 22.7 | NULL  |
+|    3 | Nazmum |      5 |   55 | NULL  |
+|    4 | Younus |      3 |   50 | NULL  |
+|    5 | Aurni  |      5 |    8 | NULL  |
+|    6 | Umme   |      4 |    7 | NULL  |
++------+--------+--------+------+-------+
+6 rows in set (0.001 sec)
+
+
+MariaDB [queries_1]> update newsailor set email ="saima@gmail.com" where id = 1;
+Query OK, 1 row affected, 1 warning (0.002 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+MariaDB [queries_1]> update newsailor set email ="nova@gmail.com" where id = 2;
+Query OK, 1 row affected, 1 warning (0.002 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+MariaDB [queries_1]> update newsailor set email ="nazmun@gmail.com" where id = 3;
+Query OK, 1 row affected, 1 warning (0.002 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+MariaDB [queries_1]> update newsailor set email ="younus@gmail.com" where id = 4;
+Query OK, 1 row affected, 1 warning (0.003 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+MariaDB [queries_1]> update newsailor set email ="aurni@yahoo.com" where id = 5;
+Query OK, 1 row affected, 1 warning (0.001 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+MariaDB [queries_1]> update newsailor set email ="umme@yahoo.com" where id = 6;
+Query OK, 1 row affected, 1 warning (0.002 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+MariaDB [queries_1]> select * from newsailor;
++------+--------+--------+------+------------+
+| ID   | Name   | Rating | Age  | email      |
++------+--------+--------+------+------------+
+|    1 | Saima  |      5 | 24.5 | saima@gmai |
+|    2 | Nova   |      5 | 22.7 | nova@gmail |
+|    3 | Nazmum |      5 |   55 | nazmun@gma |
+|    4 | Younus |      3 |   50 | younus@gma |
+|    5 | Aurni  |      5 |    8 | aurni@yaho |
+|    6 | Umme   |      4 |    7 | umme@yahoo |
++------+--------+--------+------+------------+
+6 rows in set (0.000 sec)
+
+MariaDB [queries_1]> describe newsailor;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| ID     | int(11)     | YES  |     | NULL    |       |
+| Name   | varchar(10) | YES  |     | NULL    |       |
+| Rating | int(11)     | YES  |     | NULL    |       |
+| Age    | float       | YES  |     | NULL    |       |
+| email  | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.015 sec)
+
+MariaDB [queries_1]> select rating, count(*) from newsailor group by rating;
++--------+----------+
+| rating | count(*) |
++--------+----------+
+|      3 |        1 |
+|      4 |        1 |
+|      5 |        4 |
++--------+----------+
+3 rows in set (0.001 sec)
+
+MariaDB [queries_1]> select rating, count(*) from newsailor group by rating order by count(*);
++--------+----------+
+| rating | count(*) |
++--------+----------+
+|      3 |        1 |
+|      4 |        1 |
+|      5 |        4 |
++--------+----------+
+3 rows in set (0.001 sec)
+
+MariaDB [queries_1]> select rating, count(*) from newSailor group by rating having count(*) > 1;
++--------+----------+
+| rating | count(*) |
++--------+----------+
+|      5 |        4 |
++--------+----------+
+1 row in set (0.001 sec)
+
+MariaDB [queries_1]> select rating, count(*) from newSailor group by rating having count(*) >= 1;
++--------+----------+
+| rating | count(*) |
++--------+----------+
+|      3 |        1 |
+|      4 |        1 |
+|      5 |        4 |
++--------+----------+
+3 rows in set (0.001 sec)
+
+MariaDB [queries_1]>
