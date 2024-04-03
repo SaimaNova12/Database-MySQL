@@ -1,0 +1,1173 @@
+
+Setting environment for using XAMPP for Windows.
+DELL@DESKTOP-P2BVMSV c:\xampp
+# mysql -u root -h localhost
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 9
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bd_navy            |
+| example            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| queries_1          |
+| test               |
++--------------------+
+8 rows in set (0.001 sec)
+
+MariaDB [(none)]> use queries_1;
+Database changed
+MariaDB [queries_1]> select * from sailor;
+ERROR 1146 (42S02): Table 'queries_1.sailor' doesn't exist
+MariaDB [queries_1]> create table sailor
+    -> (id int,
+    -> :
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ':' at line 3
+MariaDB [queries_1]> create database practice;
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [queries_1]> use practice;
+Database changed
+MariaDB [practice]> create table sailor
+    -> (id int,
+    -> name varchar(10),
+    -> rating int,
+    -> age float
+    -> );
+Query OK, 0 rows affected (0.010 sec)
+
+MariaDB [practice]> insert into sailor values(01, "Saima", 10, 25);
+Query OK, 1 row affected (0.006 sec)
+
+MariaDB [practice]> insert into sailor values(02, "Niha", 7, 27);
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [practice]> insert into sailor values(03, "Noushi", 8, 30);
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [practice]> select * from sailor;
++------+--------+--------+------+
+| id   | name   | rating | age  |
++------+--------+--------+------+
+|    1 | Saima  |     10 |   25 |
+|    2 | Niha   |      7 |   27 |
+|    3 | Noushi |      8 |   30 |
++------+--------+--------+------+
+3 rows in set (0.000 sec)
+
+MariaDB [practice]> update sailor set rating = 09 where id = 3;
+Query OK, 1 row affected (0.003 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [practice]> select * from sailor;
++------+--------+--------+------+
+| id   | name   | rating | age  |
++------+--------+--------+------+
+|    1 | Saima  |     10 |   25 |
+|    2 | Niha   |      7 |   27 |
+|    3 | Noushi |      9 |   30 |
++------+--------+--------+------+
+3 rows in set (0.000 sec)
+
+MariaDB [practice]> update sailor set name = "Orni" where rating = 9;
+Query OK, 1 row affected (0.003 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [practice]> select * from sailor;
++------+-------+--------+------+
+| id   | name  | rating | age  |
++------+-------+--------+------+
+|    1 | Saima |     10 |   25 |
+|    2 | Niha  |      7 |   27 |
+|    3 | Orni  |      9 |   30 |
++------+-------+--------+------+
+3 rows in set (0.000 sec)
+
+MariaDB [practice]> update sailor set name = "Zaima", age = 26 where id = 1;
+Query OK, 1 row affected (0.003 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [practice]> select * from sailor;
++------+-------+--------+------+
+| id   | name  | rating | age  |
++------+-------+--------+------+
+|    1 | Zaima |     10 |   26 |
+|    2 | Niha  |      7 |   27 |
+|    3 | Orni  |      9 |   30 |
++------+-------+--------+------+
+3 rows in set (0.000 sec)
+
+MariaDB [practice]> select rating from sailor;
++--------+
+| rating |
++--------+
+|     10 |
+|      7 |
+|      9 |
++--------+
+3 rows in set (0.000 sec)
+
+MariaDB [practice]> select distinct(rating) from sailor;
++--------+
+| rating |
++--------+
+|     10 |
+|      7 |
+|      9 |
++--------+
+3 rows in set (0.001 sec)
+
+MariaDB [practice]> select distinct(name) from sailor;
++-------+
+| name  |
++-------+
+| Zaima |
+| Niha  |
+| Orni  |
++-------+
+3 rows in set (0.001 sec)
+
+MariaDB [practice]> select distinct(rating), distinct(name) from sailor;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'distinct(name) from sailor' at line 1
+MariaDB [practice]> select distinct(rating),name from sailor;
++--------+-------+
+| rating | name  |
++--------+-------+
+|     10 | Zaima |
+|      7 | Niha  |
+|      9 | Orni  |
++--------+-------+
+3 rows in set (0.001 sec)
+
+MariaDB [practice]> select name, distinct(age) from sailor;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'distinct(age) from sailor' at line 1
+MariaDB [practice]> select * from sailor order by id;
++------+-------+--------+------+
+| id   | name  | rating | age  |
++------+-------+--------+------+
+|    1 | Zaima |     10 |   26 |
+|    2 | Niha  |      7 |   27 |
+|    3 | Orni  |      9 |   30 |
++------+-------+--------+------+
+3 rows in set (0.001 sec)
+
+MariaDB [practice]> select * from sailor order by age;
++------+-------+--------+------+
+| id   | name  | rating | age  |
++------+-------+--------+------+
+|    1 | Zaima |     10 |   26 |
+|    2 | Niha  |      7 |   27 |
+|    3 | Orni  |      9 |   30 |
++------+-------+--------+------+
+3 rows in set (0.000 sec)
+
+MariaDB [practice]> select * from sailor order by age desc;
++------+-------+--------+------+
+| id   | name  | rating | age  |
++------+-------+--------+------+
+|    3 | Orni  |      9 |   30 |
+|    2 | Niha  |      7 |   27 |
+|    1 | Zaima |     10 |   26 |
++------+-------+--------+------+
+3 rows in set (0.000 sec)
+
+MariaDB [practice]> select * from sailor order by age asc;
++------+-------+--------+------+
+| id   | name  | rating | age  |
++------+-------+--------+------+
+|    1 | Zaima |     10 |   26 |
+|    2 | Niha  |      7 |   27 |
+|    3 | Orni  |      9 |   30 |
++------+-------+--------+------+
+3 rows in set (0.000 sec)
+
+MariaDB [practice]> select id from sailor order by id desc;
++------+
+| id   |
++------+
+|    3 |
+|    2 |
+|    1 |
++------+
+3 rows in set (0.000 sec)
+
+MariaDB [practice]> select * from sailor where name like 'Za%';
++------+-------+--------+------+
+| id   | name  | rating | age  |
++------+-------+--------+------+
+|    1 | Zaima |     10 |   26 |
++------+-------+--------+------+
+1 row in set (0.001 sec)
+
+MariaDB [practice]> select * from sailor where name like '%i%';
++------+-------+--------+------+
+| id   | name  | rating | age  |
++------+-------+--------+------+
+|    1 | Zaima |     10 |   26 |
+|    2 | Niha  |      7 |   27 |
+|    3 | Orni  |      9 |   30 |
++------+-------+--------+------+
+3 rows in set (0.000 sec)
+
+MariaDB [practice]> select max(age), min(age), sum(age) from sailor;
++----------+----------+----------+
+| max(age) | min(age) | sum(age) |
++----------+----------+----------+
+|       30 |       26 |       83 |
++----------+----------+----------+
+1 row in set (0.001 sec)
+
+MariaDB [practice]> select count(*) from sailor;
++----------+
+| count(*) |
++----------+
+|        3 |
++----------+
+1 row in set (0.001 sec)
+
+MariaDB [practice]> select count(id) from sailor;
++-----------+
+| count(id) |
++-----------+
+|         3 |
++-----------+
+1 row in set (0.000 sec)
+
+MariaDB [practice]> select count(id), name from sailor;
++-----------+-------+
+| count(id) | name  |
++-----------+-------+
+|         3 | Zaima |
++-----------+-------+
+1 row in set (0.000 sec)
+
+MariaDB [practice]> select * from sailor where id in(1,2)
+    -> ;
++------+-------+--------+------+
+| id   | name  | rating | age  |
++------+-------+--------+------+
+|    1 | Zaima |     10 |   26 |
+|    2 | Niha  |      7 |   27 |
++------+-------+--------+------+
+2 rows in set (0.001 sec)
+
+MariaDB [practice]> select * from sailor where id(1,2) and age<30;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(1,2) and age<30' at line 1
+MariaDB [practice]> select * from sailor where id in(1,2,3) and age<30;
++------+-------+--------+------+
+| id   | name  | rating | age  |
++------+-------+--------+------+
+|    1 | Zaima |     10 |   26 |
+|    2 | Niha  |      7 |   27 |
++------+-------+--------+------+
+2 rows in set (0.000 sec)
+
+MariaDB [practice]> select * from sailor where rating between 1 and 7;
++------+------+--------+------+
+| id   | name | rating | age  |
++------+------+--------+------+
+|    2 | Niha |      7 |   27 |
++------+------+--------+------+
+1 row in set (0.000 sec)
+
+MariaDB [practice]> select * from sailor where rating between 1 and 10 order by id desc;
++------+-------+--------+------+
+| id   | name  | rating | age  |
++------+-------+--------+------+
+|    3 | Orni  |      9 |   30 |
+|    2 | Niha  |      7 |   27 |
+|    1 | Zaima |     10 |   26 |
++------+-------+--------+------+
+3 rows in set (0.001 sec)
+
+MariaDB [practice]> select * from sailor order by rating;
++------+-------+--------+------+
+| id   | name  | rating | age  |
++------+-------+--------+------+
+|    2 | Niha  |      7 |   27 |
+|    3 | Orni  |      9 |   30 |
+|    1 | Zaima |     10 |   26 |
++------+-------+--------+------+
+3 rows in set (0.001 sec)
+
+MariaDB [practice]> select * from sailor order by rating asc;
++------+-------+--------+------+
+| id   | name  | rating | age  |
++------+-------+--------+------+
+|    2 | Niha  |      7 |   27 |
+|    3 | Orni  |      9 |   30 |
+|    1 | Zaima |     10 |   26 |
++------+-------+--------+------+
+3 rows in set (0.000 sec)
+
+MariaDB [practice]> select * from sailor order by age asc limit 2;
++------+-------+--------+------+
+| id   | name  | rating | age  |
++------+-------+--------+------+
+|    1 | Zaima |     10 |   26 |
+|    2 | Niha  |      7 |   27 |
++------+-------+--------+------+
+2 rows in set (0.001 sec)
+
+MariaDB [practice]> select * from sailor order by age desc limit 2;
++------+------+--------+------+
+| id   | name | rating | age  |
++------+------+--------+------+
+|    3 | Orni |      9 |   30 |
+|    2 | Niha |      7 |   27 |
++------+------+--------+------+
+2 rows in set (0.000 sec)
+
+MariaDB [practice]> alter table sailor rename to newsailor;
+Query OK, 0 rows affected (0.012 sec)
+
+MariaDB [practice]> alter table sailor rename to newsailor;
+ERROR 1146 (42S02): Table 'practice.sailor' doesn't exist
+MariaDB [practice]> select * from newsailor;
++------+-------+--------+------+
+| id   | name  | rating | age  |
++------+-------+--------+------+
+|    1 | Zaima |     10 |   26 |
+|    2 | Niha  |      7 |   27 |
+|    3 | Orni  |      9 |   30 |
++------+-------+--------+------+
+3 rows in set (0.002 sec)
+
+MariaDB [practice]> alter table sailor add email varchar(10);
+ERROR 1146 (42S02): Table 'practice.sailor' doesn't exist
+MariaDB [practice]> alter table newsailor add email varchar(10);
+Query OK, 0 rows affected (0.009 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [practice]> select *from newsailor;
++------+-------+--------+------+-------+
+| id   | name  | rating | age  | email |
++------+-------+--------+------+-------+
+|    1 | Zaima |     10 |   26 | NULL  |
+|    2 | Niha  |      7 |   27 | NULL  |
+|    3 | Orni  |      9 |   30 | NULL  |
++------+-------+--------+------+-------+
+3 rows in set (0.001 sec)
+
+MariaDB [practice]>  update newsailor set email = "saima@com" where id = 1 ;
+Query OK, 1 row affected (0.003 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [practice]> update newsailor set email = "hina@com" where id = 2 ;
+Query OK, 1 row affected (0.003 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [practice]> update newsailor set email = "orni@com" where id = 3 ;
+Query OK, 1 row affected (0.003 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [practice]> select * from newsailor;
++------+-------+--------+------+-----------+
+| id   | name  | rating | age  | email     |
++------+-------+--------+------+-----------+
+|    1 | Zaima |     10 |   26 | saima@com |
+|    2 | Niha  |      7 |   27 | hina@com  |
+|    3 | Orni  |      9 |   30 | orni@com  |
++------+-------+--------+------+-----------+
+3 rows in set (0.001 sec)
+
+MariaDB [practice]> select rating, count(*) from newsailor group by rating;
++--------+----------+
+| rating | count(*) |
++--------+----------+
+|      7 |        1 |
+|      9 |        1 |
+|     10 |        1 |
++--------+----------+
+3 rows in set (0.001 sec)
+
+MariaDB [practice]> select rating , count(*) from newsailor group by rating;
++--------+----------+
+| rating | count(*) |
++--------+----------+
+|      7 |        1 |
+|      9 |        1 |
+|     10 |        1 |
++--------+----------+
+3 rows in set (0.001 sec)
+
+MariaDB [practice]> select rating, count(*) from newsailor group by rating order by count(*);
++--------+----------+
+| rating | count(*) |
++--------+----------+
+|     10 |        1 |
+|      7 |        1 |
+|      9 |        1 |
++--------+----------+
+3 rows in set (0.001 sec)
+
+MariaDB [practice]> select rating, count(*) from newsailor group by rating order by count(*) having count>1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'having count>1' at line 1
+MariaDB [practice]> select rating, count(*) from newsailor group by rating order by count(*) having count(*)>1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'having count(*)>1' at line 1
+MariaDB [practice]> select rating, count(*) from newsailor group by rating order by count(*) having count(*)>1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'having count(*)>1' at line 1
+MariaDB [practice]> select rating, count(*) from newsailor group by rating having count(*)>1;
+Empty set (0.001 sec)
+
+MariaDB [practice]> select rating, count(*) from newsailor group by rating having count(*)>=1;
++--------+----------+
+| rating | count(*) |
++--------+----------+
+|      7 |        1 |
+|      9 |        1 |
+|     10 |        1 |
++--------+----------+
+3 rows in set (0.001 sec)
+
+
+Setting environment for using XAMPP for Windows.
+DELL@DESKTOP-P2BVMSV c:\xampp
+# mysql -u root -h localhost
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| bd_navy            |
+| example            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| practice           |
+| queries_1          |
+| test               |
++--------------------+
+9 rows in set (0.025 sec)
+
+MariaDB [(none)]> use practice;
+Database changed
+MariaDB [practice]> select * from newsailor;
++------+-------+--------+------+-----------+
+| id   | name  | rating | age  | email     |
++------+-------+--------+------+-----------+
+|    1 | Zaima |     10 |   26 | saima@com |
+|    2 | Niha  |      7 |   27 | hina@com  |
+|    3 | Orni  |      9 |   30 | orni@com  |
++------+-------+--------+------+-----------+
+3 rows in set (0.046 sec)
+
+MariaDB [practice]> insert into newsailor(4, "rahman", 6, 23);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '4, "rahman", 6, 23)' at line 1
+MariaDB [practice]> insert into newsailor(4, "rahman", 6, 23, "rahman@gmail.com");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '4, "rahman", 6, 23, "rahman@gmail.com")' at line 1
+MariaDB [practice]> insert into newsailor information(4, "rahman", 6, 23, "rahman@gmail.com");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'information(4, "rahman", 6, 23, "rahman@gmail.com")' at line 1
+MariaDB [practice]> insert into newsailor values(4, "rahman", 6, 23, "rahman@gmail.com");
+Query OK, 1 row affected, 1 warning (0.002 sec)
+
+MariaDB [practice]> insert into newsailor values(5, "younus", 8, 63, "younus@gmail.com");
+Query OK, 1 row affected, 1 warning (0.003 sec)
+
+MariaDB [practice]> select * from newsailor;
++------+--------+--------+------+------------+
+| id   | name   | rating | age  | email      |
++------+--------+--------+------+------------+
+|    1 | Zaima  |     10 |   26 | saima@com  |
+|    2 | Niha   |      7 |   27 | hina@com   |
+|    3 | Orni   |      9 |   30 | orni@com   |
+|    4 | rahman |      6 |   23 | rahman@gma |
+|    5 | younus |      8 |   63 | younus@gma |
++------+--------+--------+------+------------+
+5 rows in set (0.000 sec)
+
+MariaDB [practice]> alter table newsailor rename to employee;
+Query OK, 0 rows affected (0.011 sec)
+
+MariaDB [practice]> select * from employee
+    -> ;
++------+--------+--------+------+------------+
+| id   | name   | rating | age  | email      |
++------+--------+--------+------+------------+
+|    1 | Zaima  |     10 |   26 | saima@com  |
+|    2 | Niha   |      7 |   27 | hina@com   |
+|    3 | Orni   |      9 |   30 | orni@com   |
+|    4 | rahman |      6 |   23 | rahman@gma |
+|    5 | younus |      8 |   63 | younus@gma |
++------+--------+--------+------+------------+
+5 rows in set (0.002 sec)
+
+MariaDB [practice]> alter table newsailor add dateofjoin datetime;
+ERROR 1146 (42S02): Table 'practice.newsailor' doesn't exist
+MariaDB [practice]> alter table employee add dateofjoin datetime;
+Query OK, 0 rows affected (0.008 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [practice]> select * from employee;
++------+--------+--------+------+------------+------------+
+| id   | name   | rating | age  | email      | dateofjoin |
++------+--------+--------+------+------------+------------+
+|    1 | Zaima  |     10 |   26 | saima@com  | NULL       |
+|    2 | Niha   |      7 |   27 | hina@com   | NULL       |
+|    3 | Orni   |      9 |   30 | orni@com   | NULL       |
+|    4 | rahman |      6 |   23 | rahman@gma | NULL       |
+|    5 | younus |      8 |   63 | younus@gma | NULL       |
++------+--------+--------+------+------------+------------+
+5 rows in set (0.001 sec)
+
+MariaDB [practice]> update employee set dateofjoing = '10/12/1997' where id = 1;
+ERROR 1054 (42S22): Unknown column 'dateofjoing' in 'field list'
+MariaDB [practice]> update employee set dateofjoin = '10/12/1997' where id = 1;
+Query OK, 1 row affected, 1 warning (0.003 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+MariaDB [practice]> select * from employee;
++------+--------+--------+------+------------+---------------------+
+| id   | name   | rating | age  | email      | dateofjoin          |
++------+--------+--------+------+------------+---------------------+
+|    1 | Zaima  |     10 |   26 | saima@com  | 0000-00-00 00:00:00 |
+|    2 | Niha   |      7 |   27 | hina@com   | NULL                |
+|    3 | Orni   |      9 |   30 | orni@com   | NULL                |
+|    4 | rahman |      6 |   23 | rahman@gma | NULL                |
+|    5 | younus |      8 |   63 | younus@gma | NULL                |
++------+--------+--------+------+------------+---------------------+
+5 rows in set (0.000 sec)
+
+MariaDB [practice]> alter table employee rename to sailor;
+Query OK, 0 rows affected (0.010 sec)
+
+MariaDB [practice]> select * from sailor;
++------+--------+--------+------+------------+---------------------+
+| id   | name   | rating | age  | email      | dateofjoin          |
++------+--------+--------+------+------------+---------------------+
+|    1 | Zaima  |     10 |   26 | saima@com  | 0000-00-00 00:00:00 |
+|    2 | Niha   |      7 |   27 | hina@com   | NULL                |
+|    3 | Orni   |      9 |   30 | orni@com   | NULL                |
+|    4 | rahman |      6 |   23 | rahman@gma | NULL                |
+|    5 | younus |      8 |   63 | younus@gma | NULL                |
++------+--------+--------+------+------------+---------------------+
+5 rows in set (0.004 sec)
+
+MariaDB [practice]> create table employee
+    ->     EmpId int,
+    ->     Name varchar(255),
+    ->     ManagerId int,
+    ->     DOJ DATETIME,
+    ->   City varchar(255),
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'int,
+    Name varchar(255),
+    ManagerId int,
+    DOJ DATETIME,
+  City varch...' at line 2
+MariaDB [practice]> create table employee
+    -> (empid int,
+    -> name varchar(10),
+    -> managerid int,
+    -> doj datetime,
+    -> city varchar(10),
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 7
+MariaDB [practice]> create table employee
+    -> (empid int,
+    -> name varchar(10),
+    -> managerid int,
+    -> doj datetime,
+    -> city varchar(10)
+    -> );
+Query OK, 0 rows affected (0.013 sec)
+
+MariaDB [practice]> create table salary
+    -> (empid int,
+    -> project varchar(10),
+    -> salary int,
+    -> variable int,
+    -> nothing int
+    -> );
+Query OK, 0 rows affected (0.012 sec)
+
+MariaDB [practice]> INSERT INTO Employee VALUES
+    -> (121, 'John', 321, '1/31/2016', 'hyd'),
+    ->     (321, 'David', 986, '1/30/2018', 'Chennai'),
+    ->     (421, 'Scott', 876, '27/11/2020', 'Mumbai');
+Query OK, 3 rows affected, 3 warnings (0.005 sec)
+Records: 3  Duplicates: 0  Warnings: 3
+
+MariaDB [practice]> select * from employee;
++-------+-------+-----------+---------------------+---------+
+| empid | name  | managerid | doj                 | city    |
++-------+-------+-----------+---------------------+---------+
+|   121 | John  |       321 | 0000-00-00 00:00:00 | hyd     |
+|   321 | David |       986 | 0000-00-00 00:00:00 | Chennai |
+|   421 | Scott |       876 | 0000-00-00 00:00:00 | Mumbai  |
++-------+-------+-----------+---------------------+---------+
+3 rows in set (0.001 sec)
+
+MariaDB [practice]> update employee set doj = '2024/12/1' where id = 121;
+ERROR 1054 (42S22): Unknown column 'id' in 'where clause'
+MariaDB [practice]> update employee set doj = '2024/12/1' where empid = 121;
+Query OK, 1 row affected (0.003 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [practice]> update employee set doj = '2024/09/10' where empid = 321;
+Query OK, 1 row affected (0.002 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [practice]> update employee set doj = '2024/11/17' where empid = 421;
+Query OK, 1 row affected (0.003 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [practice]> select * from employee;
++-------+-------+-----------+---------------------+---------+
+| empid | name  | managerid | doj                 | city    |
++-------+-------+-----------+---------------------+---------+
+|   121 | John  |       321 | 2024-12-01 00:00:00 | hyd     |
+|   321 | David |       986 | 2024-09-10 00:00:00 | Chennai |
+|   421 | Scott |       876 | 2024-11-17 00:00:00 | Mumbai  |
++-------+-------+-----------+---------------------+---------+
+3 rows in set (0.000 sec)
+
+MariaDB [practice]> INSERT INTO Salary VALUES
+    ->     (121, 'P1', 20000, 0),
+    ->     (321, 'P2', 35000, 1000),
+    ->     (421, 'P1', 50000, 3000);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+MariaDB [practice]> INSERT INTO Salary VALUES
+    ->     (121, 'P1', 20000, 0, 0),
+    ->     (321, 'P2', 35000, 1000, 0),
+    ->     (421, 'P1', 50000, 3000, 0);
+Query OK, 3 rows affected (0.002 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [practice]> select * from salary;
++-------+---------+--------+----------+---------+
+| empid | project | salary | variable | nothing |
++-------+---------+--------+----------+---------+
+|   121 | P1      |  20000 |        0 |       0 |
+|   321 | P2      |  35000 |     1000 |       0 |
+|   421 | P1      |  50000 |     3000 |       0 |
++-------+---------+--------+----------+---------+
+3 rows in set (0.000 sec)
+
+MariaDB [practice]> select * from employee;
++-------+-------+-----------+---------------------+---------+
+| empid | name  | managerid | doj                 | city    |
++-------+-------+-----------+---------------------+---------+
+|   121 | John  |       321 | 2024-12-01 00:00:00 | hyd     |
+|   321 | David |       986 | 2024-09-10 00:00:00 | Chennai |
+|   421 | Scott |       876 | 2024-11-17 00:00:00 | Mumbai  |
++-------+-------+-----------+---------------------+---------+
+3 rows in set (0.001 sec)
+
+MariaDB [practice]> select empid, name from employee where id = 986;
+ERROR 1054 (42S22): Unknown column 'id' in 'where clause'
+MariaDB [practice]> select empid, name from employee where managerid = 986;
++-------+-------+
+| empid | name  |
++-------+-------+
+|   321 | David |
++-------+-------+
+1 row in set (0.001 sec)
+
+MariaDB [practice]> select distinct(projrct) from salary;
+ERROR 1054 (42S22): Unknown column 'projrct' in 'field list'
+MariaDB [practice]> select distinct(project) from salary;
++---------+
+| project |
++---------+
+| P1      |
+| P2      |
++---------+
+2 rows in set (0.001 sec)
+
+MariaDB [practice]> select distinct(project) from employee;
+ERROR 1054 (42S22): Unknown column 'project' in 'field list'
+MariaDB [practice]> select distinct(project) from salary;
++---------+
+| project |
++---------+
+| P1      |
+| P2      |
++---------+
+2 rows in set (0.009 sec)
+
+MariaDB [practice]> select count(*) from employees where project = 'p1';
+ERROR 1146 (42S02): Table 'practice.employees' doesn't exist
+MariaDB [practice]> select count(*) from employee where project = 'p1';
+ERROR 1054 (42S22): Unknown column 'project' in 'where clause'
+MariaDB [practice]> select count(*) from salary where project = 'p1';
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.003 sec)
+
+MariaDB [practice]> select max(salary) from salary;
++-------------+
+| max(salary) |
++-------------+
+|       50000 |
++-------------+
+1 row in set (0.001 sec)
+
+MariaDB [practice]> select max(salary), min(salary), avg(salary) from salary;
++-------------+-------------+-------------+
+| max(salary) | min(salary) | avg(salary) |
++-------------+-------------+-------------+
+|       50000 |       20000 |  35000.0000 |
++-------------+-------------+-------------+
+1 row in set (0.001 sec)
+
+MariaDB [practice]> select empid from salary where salary between 30000 and 40000;
++-------+
+| empid |
++-------+
+|   321 |
++-------+
+1 row in set (0.001 sec)
+
+MariaDB [practice]> select * from employee;
++-------+-------+-----------+---------------------+---------+
+| empid | name  | managerid | doj                 | city    |
++-------+-------+-----------+---------------------+---------+
+|   121 | John  |       321 | 2024-12-01 00:00:00 | hyd     |
+|   321 | David |       986 | 2024-09-10 00:00:00 | Chennai |
+|   421 | Scott |       876 | 2024-11-17 00:00:00 | Mumbai  |
++-------+-------+-----------+---------------------+---------+
+3 rows in set (0.001 sec)
+
+MariaDB [practice]> select * from employee where city = "chennai" and managerid = 986;
++-------+-------+-----------+---------------------+---------+
+| empid | name  | managerid | doj                 | city    |
++-------+-------+-----------+---------------------+---------+
+|   321 | David |       986 | 2024-09-10 00:00:00 | Chennai |
++-------+-------+-----------+---------------------+---------+
+1 row in set (0.001 sec)
+
+MariaDB [practice]> select * from employee where city = "chennai" OR managerid = 986;
++-------+-------+-----------+---------------------+---------+
+| empid | name  | managerid | doj                 | city    |
++-------+-------+-----------+---------------------+---------+
+|   321 | David |       986 | 2024-09-10 00:00:00 | Chennai |
++-------+-------+-----------+---------------------+---------+
+1 row in set (0.001 sec)
+
+MariaDB [practice]> select * from salary where project != 'p1';
++-------+---------+--------+----------+---------+
+| empid | project | salary | variable | nothing |
++-------+---------+--------+----------+---------+
+|   321 | P2      |  35000 |     1000 |       0 |
++-------+---------+--------+----------+---------+
+1 row in set (0.000 sec)
+
+MariaDB [practice]> select totalsalary as salary+variable from salary;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '+variable from salary' at line 1
+MariaDB [practice]> select salary+variable as totalsalary from salary;
++-------------+
+| totalsalary |
++-------------+
+|       20000 |
+|       36000 |
+|       53000 |
++-------------+
+3 rows in set (0.000 sec)
+
+MariaDB [practice]> select * from employee where name like '%vi';
+Empty set (0.001 sec)
+
+MariaDB [practice]> select * from employee where name like '%vi%';
++-------+-------+-----------+---------------------+---------+
+| empid | name  | managerid | doj                 | city    |
++-------+-------+-----------+---------------------+---------+
+|   321 | David |       986 | 2024-09-10 00:00:00 | Chennai |
++-------+-------+-----------+---------------------+---------+
+1 row in set (0.000 sec)
+
+MariaDB [practice]> CREATE TABLE employees (
+    ->     EMPLOYEE_ID int,
+    ->     LAST_NAME varchar(255),
+    ->     FIRST_NAME varchar(255),
+    ->     MIDDLE_NAME varchar(255),
+    ->     JOB_ID INT,
+    ->     MANAGER_ID INT,
+    ->     HIRE_DATE DATETIME,
+    ->     SALARY INT,
+    ->     COMM INT,
+    ->     DEPARTMENT_ID INT
+    -> );
+Query OK, 0 rows affected (0.021 sec)
+
+MariaDB [practice]> select * from employees;
+Empty set (0.003 sec)
+
+MariaDB [practice]> CREATE TABLE DEPARTMENT (
+    ->     DEPARTMENT_ID INT,
+    ->     NAME varchar(255),
+    ->     LOCATION_ID INT,
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 5
+MariaDB [practice]> CREATE TABLE DEPARTMENT (
+    ->     DEPARTMENT_ID INT,
+    ->     NAME varchar(255),
+    ->     LOCATION_ID INT
+    -> );
+Query OK, 0 rows affected (0.011 sec)
+
+MariaDB [practice]> CREATE TABLE LOCATION (
+    ->     LOCATION_ID INT,
+    ->     REGIONAL_GROUP varchar(255),
+    ->     PRIMARY KEY (LOCATION_ID)
+    -> );
+Query OK, 0 rows affected (0.014 sec)
+
+MariaDB [practice]> CREATE TABLE JOB (
+    ->     JOB_ID INT,
+    ->     FUNCTION varchar(255),
+    ->     PRIMARY KEY (JOB_ID)
+    -> );
+Query OK, 0 rows affected (0.011 sec)
+
+MariaDB [practice]> INSERT INTO employees VALUES
+    ->     (1, 'Saima', 'Binta', 'Younus', 667, 7902, '2021/12/01', 800, NULL, 20),
+    ->     (2, 'Israt', 'Binta', 'Younus', 670, 7698, '2021/9/01', 1600, 300, 30),
+    ->     (3, 'Arian', 'Binta', 'Younus', 671, 7839, '2027/10/12', 2850, NULL, 30),
+    ->     (4, 'Nusrat', 'Binta', 'Younus', 671, 7839, '2023/12/29', 2750, NULL, 30),
+    ->     (5, 'Nazmun', 'Nahar', 'Moon', 671, 7839, '2029/11/23', 2200, NULL, 40),
+    ->     (6, 'younus', 'Ali', 'Khoka', 670, 7698, '2020/12/29', 1250, NULL, 40);
+Query OK, 6 rows affected (0.003 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+MariaDB [practice]> INSERT INTO DEPARTMENT VALUES
+    ->     (10, 'ACCOUNTING', 122),
+    ->     (20, 'RESEARCH', 124),
+    ->     (30, 'SALES', 123),
+    ->     (40, 'OPERATIONS', 167);
+Query OK, 4 rows affected (0.005 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [practice]> INSERT INTO LOCATION VALUES
+    -> (122, 'NEW YORK'),
+    ->     (123, 'DALLAS'),
+    ->     (124, 'CHICAGO'),
+    ->     (167, 'BOSTON');
+Query OK, 4 rows affected (0.008 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [practice]> INSERT INTO JOB VALUES
+    -> (667, 'CLERK'),
+    ->     (668, 'STAFF'),
+    ->     (669, 'ANALYST'),
+    ->     (670, 'SALESPERSION'),
+    ->     (671, 'MANAGER'),
+    ->     (672, 'PRESIDENT');
+Query OK, 6 rows affected (0.004 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+MariaDB [practice]> select * from employees;
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+| EMPLOYEE_ID | LAST_NAME | FIRST_NAME | MIDDLE_NAME | JOB_ID | MANAGER_ID | HIRE_DATE           | SALARY | COMM | DEPARTMENT_ID |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+|           1 | Saima     | Binta      | Younus      |    667 |       7902 | 2021-12-01 00:00:00 |    800 | NULL |            20 |
+|           2 | Israt     | Binta      | Younus      |    670 |       7698 | 2021-09-01 00:00:00 |   1600 |  300 |            30 |
+|           3 | Arian     | Binta      | Younus      |    671 |       7839 | 2027-10-12 00:00:00 |   2850 | NULL |            30 |
+|           4 | Nusrat    | Binta      | Younus      |    671 |       7839 | 2023-12-29 00:00:00 |   2750 | NULL |            30 |
+|           5 | Nazmun    | Nahar      | Moon        |    671 |       7839 | 2029-11-23 00:00:00 |   2200 | NULL |            40 |
+|           6 | younus    | Ali        | Khoka       |    670 |       7698 | 2020-12-29 00:00:00 |   1250 | NULL |            40 |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+6 rows in set (0.000 sec)
+
+MariaDB [practice]> select * from employees where comm = 'NULL';
+Empty set, 1 warning (0.001 sec)
+
+MariaDB [practice]> select * from employees where comm = NULL;
+Empty set (0.001 sec)
+
+MariaDB [practice]> select * from employees where comm == NULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= NULL' at line 1
+MariaDB [practice]> select * from employees where comm is NULL;
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+| EMPLOYEE_ID | LAST_NAME | FIRST_NAME | MIDDLE_NAME | JOB_ID | MANAGER_ID | HIRE_DATE           | SALARY | COMM | DEPARTMENT_ID |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+|           1 | Saima     | Binta      | Younus      |    667 |       7902 | 2021-12-01 00:00:00 |    800 | NULL |            20 |
+|           3 | Arian     | Binta      | Younus      |    671 |       7839 | 2027-10-12 00:00:00 |   2850 | NULL |            30 |
+|           4 | Nusrat    | Binta      | Younus      |    671 |       7839 | 2023-12-29 00:00:00 |   2750 | NULL |            30 |
+|           5 | Nazmun    | Nahar      | Moon        |    671 |       7839 | 2029-11-23 00:00:00 |   2200 | NULL |            40 |
+|           6 | younus    | Ali        | Khoka       |    670 |       7698 | 2020-12-29 00:00:00 |   1250 | NULL |            40 |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+5 rows in set (0.001 sec)
+
+MariaDB [practice]> select * from employees where department_id = 20 and salary>700;
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+| EMPLOYEE_ID | LAST_NAME | FIRST_NAME | MIDDLE_NAME | JOB_ID | MANAGER_ID | HIRE_DATE           | SALARY | COMM | DEPARTMENT_ID |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+|           1 | Saima     | Binta      | Younus      |    667 |       7902 | 2021-12-01 00:00:00 |    800 | NULL |            20 |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+1 row in set (0.000 sec)
+
+MariaDB [practice]> select employee_id, name from employees order by salary desc;
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+MariaDB [practice]> select employee_id, last_name from employees order by salary desc;
++-------------+-----------+
+| employee_id | last_name |
++-------------+-----------+
+|           3 | Arian     |
+|           4 | Nusrat    |
+|           5 | Nazmun    |
+|           2 | Israt     |
+|           6 | younus    |
+|           1 | Saima     |
++-------------+-----------+
+6 rows in set (0.001 sec)
+
+MariaDB [practice]> select employee_id, last_name,salary from employees order by salary desc;
++-------------+-----------+--------+
+| employee_id | last_name | salary |
++-------------+-----------+--------+
+|           3 | Arian     |   2850 |
+|           4 | Nusrat    |   2750 |
+|           5 | Nazmun    |   2200 |
+|           2 | Israt     |   1600 |
+|           6 | younus    |   1250 |
+|           1 | Saima     |    800 |
++-------------+-----------+--------+
+6 rows in set (0.000 sec)
+
+MariaDB [practice]> select department_id,count(*) from employees group by department_id;
++---------------+----------+
+| department_id | count(*) |
++---------------+----------+
+|            20 |        1 |
+|            30 |        3 |
+|            40 |        2 |
++---------------+----------+
+3 rows in set (0.001 sec)
+
+MariaDB [practice]> select count(*) from employees group by department_id;
++----------+
+| count(*) |
++----------+
+|        1 |
+|        3 |
+|        2 |
++----------+
+3 rows in set (0.001 sec)
+
+MariaDB [practice]> select department_id, count(*) from employees group by department_id having count(*)>=3;
++---------------+----------+
+| department_id | count(*) |
++---------------+----------+
+|            30 |        3 |
++---------------+----------+
+1 row in set (0.001 sec)
+
+MariaDB [practice]> select max(salary),name from employees;
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+MariaDB [practice]> select max(salary),last_name from employees;
++-------------+-----------+
+| max(salary) | last_name |
++-------------+-----------+
+|        2850 | Saima     |
++-------------+-----------+
+1 row in set (0.000 sec)
+
+MariaDB [practice]> select * from employee where salary = (select max(salary) from employee);
+ERROR 1054 (42S22): Unknown column 'salary' in 'where clause'
+MariaDB [practice]> select * from employees where salary = (select max(salary) from employees);
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+| EMPLOYEE_ID | LAST_NAME | FIRST_NAME | MIDDLE_NAME | JOB_ID | MANAGER_ID | HIRE_DATE           | SALARY | COMM | DEPARTMENT_ID |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+|           3 | Arian     | Binta      | Younus      |    671 |       7839 | 2027-10-12 00:00:00 |   2850 | NULL |            30 |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+1 row in set (0.001 sec)
+
+MariaDB [practice]> select max(salary),last_name,manager_id,doj,department_id from employees;
+ERROR 1054 (42S22): Unknown column 'doj' in 'field list'
+MariaDB [practice]> select max(salary),last_name,manager_id,department_id from employees;
++-------------+-----------+------------+---------------+
+| max(salary) | last_name | manager_id | department_id |
++-------------+-----------+------------+---------------+
+|        2850 | Saima     |       7902 |            20 |
++-------------+-----------+------------+---------------+
+1 row in set (0.000 sec)
+
+MariaDB [practice]> select * from employees where department_id in (select department_id from department where name = 'sales');
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+| EMPLOYEE_ID | LAST_NAME | FIRST_NAME | MIDDLE_NAME | JOB_ID | MANAGER_ID | HIRE_DATE           | SALARY | COMM | DEPARTMENT_ID |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+|           2 | Israt     | Binta      | Younus      |    670 |       7698 | 2021-09-01 00:00:00 |   1600 |  300 |            30 |
+|           3 | Arian     | Binta      | Younus      |    671 |       7839 | 2027-10-12 00:00:00 |   2850 | NULL |            30 |
+|           4 | Nusrat    | Binta      | Younus      |    671 |       7839 | 2023-12-29 00:00:00 |   2750 | NULL |            30 |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+3 rows in set (0.002 sec)
+
+MariaDB [practice]> select * from employees where department_id in (select department_id from department where location_id in(select location_id from location where regional_group = 'NEW YORK'));
+Empty set (0.002 sec)
+
+MariaDB [practice]> update employees set salary = (salary*10)/100 wwhere job_id = 671;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'wwhere job_id = 671' at line 1
+MariaDB [practice]> update employees set salary = (salary*10)/100 where job_id = 671;
+Query OK, 3 rows affected (0.003 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+MariaDB [practice]> select * from employees;
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+| EMPLOYEE_ID | LAST_NAME | FIRST_NAME | MIDDLE_NAME | JOB_ID | MANAGER_ID | HIRE_DATE           | SALARY | COMM | DEPARTMENT_ID |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+|           1 | Saima     | Binta      | Younus      |    667 |       7902 | 2021-12-01 00:00:00 |    800 | NULL |            20 |
+|           2 | Israt     | Binta      | Younus      |    670 |       7698 | 2021-09-01 00:00:00 |   1600 |  300 |            30 |
+|           3 | Arian     | Binta      | Younus      |    671 |       7839 | 2027-10-12 00:00:00 |    285 | NULL |            30 |
+|           4 | Nusrat    | Binta      | Younus      |    671 |       7839 | 2023-12-29 00:00:00 |    275 | NULL |            30 |
+|           5 | Nazmun    | Nahar      | Moon        |    671 |       7839 | 2029-11-23 00:00:00 |    220 | NULL |            40 |
+|           6 | younus    | Ali        | Khoka       |    670 |       7698 | 2020-12-29 00:00:00 |   1250 | NULL |            40 |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+6 rows in set (0.000 sec)
+
+MariaDB [practice]> update employees set salary = (salary)*10/100 where job_id = 671;
+Query OK, 3 rows affected (0.003 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+MariaDB [practice]> select * from employees;
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+| EMPLOYEE_ID | LAST_NAME | FIRST_NAME | MIDDLE_NAME | JOB_ID | MANAGER_ID | HIRE_DATE           | SALARY | COMM | DEPARTMENT_ID |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+|           1 | Saima     | Binta      | Younus      |    667 |       7902 | 2021-12-01 00:00:00 |    800 | NULL |            20 |
+|           2 | Israt     | Binta      | Younus      |    670 |       7698 | 2021-09-01 00:00:00 |   1600 |  300 |            30 |
+|           3 | Arian     | Binta      | Younus      |    671 |       7839 | 2027-10-12 00:00:00 |     29 | NULL |            30 |
+|           4 | Nusrat    | Binta      | Younus      |    671 |       7839 | 2023-12-29 00:00:00 |     28 | NULL |            30 |
+|           5 | Nazmun    | Nahar      | Moon        |    671 |       7839 | 2029-11-23 00:00:00 |     22 | NULL |            40 |
+|           6 | younus    | Ali        | Khoka       |    670 |       7698 | 2020-12-29 00:00:00 |   1250 | NULL |            40 |
++-------------+-----------+------------+-------------+--------+------------+---------------------+--------+------+---------------+
+6 rows in set (0.001 sec)
+
+MariaDB [practice]> delete from employees where department_id in (select department_id from department where name = "accounting"); 
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [practice]> CREATE TABLE workers (
+    ->     EID INT,
+    ->     ENAME varchar(255),
+    ->     SALARY INT,
+    ->     PRIMARY KEY (EID));
+Query OK, 0 rows affected (0.010 sec)
+
+MariaDB [practice]> select * from workers;
+Empty set (0.002 sec)
+
+MariaDB [practice]> INSERT INTO workers VALUES
+    ->     (101, 'AMIT', 20000),
+    ->     (102, 'DAVID', 30000),
+    ->     (103, 'BHASKAR', 25000),
+    ->     (104, 'SMITH', 28000),
+    ->     (105, 'JOHN', 15000);
+Query OK, 5 rows affected (0.003 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [practice]> select * from workers;
++-----+---------+--------+
+| EID | ENAME   | SALARY |
++-----+---------+--------+
+| 101 | AMIT    |  20000 |
+| 102 | DAVID   |  30000 |
+| 103 | BHASKAR |  25000 |
+| 104 | SMITH   |  28000 |
+| 105 | JOHN    |  15000 |
++-----+---------+--------+
+5 rows in set (0.000 sec)
+
+MariaDB [practice]> select max(salary),name,eid from workers;
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+MariaDB [practice]> select max(salary),ename,eid from workers;
++-------------+-------+------+
+| max(salary) | ename | eid  |
++-------------+-------+------+
+|       30000 | AMIT  |  101 |
++-------------+-------+------+
+1 row in set (0.000 sec)
+
+MariaDB [practice]> select salary from employee order by salary desc 1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '1' at line 1
+MariaDB [practice]> select salary from employees order by salary desc 1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '1' at line 1
+MariaDB [practice]> select salary from employees order by salary desc limit 1;
++--------+
+| salary |
++--------+
+|   1600 |
++--------+
+1 row in set (0.001 sec)
+
+MariaDB [practice]> select salary from employees order by salary desc limit 2;
++--------+
+| salary |
++--------+
+|   1600 |
+|   1250 |
++--------+
+2 rows in set (0.000 sec)
+
+MariaDB [practice]> select salary from workers order by salary desc limit 2;
++--------+
+| salary |
++--------+
+|  30000 |
+|  28000 |
++--------+
+2 rows in set (0.001 sec)
+
+MariaDB [practice]> select max(salary) from workers;
++-------------+
+| max(salary) |
++-------------+
+|       30000 |
++-------------+
+1 row in set (0.000 sec)
+
+MariaDB [practice]> select salary from workers order by salary desc limit 1;
++--------+
+| salary |
++--------+
+|  30000 |
++--------+
+1 row in set (0.000 sec)
+
+MariaDB [practice]> select max(salary) from workers < select max(salary) from workers;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '< select max(salary) from workers' at line 1
+MariaDB [practice]> select max(salary) from workers < (select max(salary) from workers);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '< (select max(salary) from workers)' at line 1
+MariaDB [practice]> select max(salary) from workers where salary < (select max(salary) from workers);
++-------------+
+| max(salary) |
++-------------+
+|       28000 |
++-------------+
+1 row in set (0.001 sec)
+
+MariaDB [practice]>
+MariaDB [practice]> select max(salary) from workers where salary < (select max(salary) from workers) < (;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [practice]> select max(salary) from workers where salary < (select max(salary) from workers)where salary < (select max(salary) from workers);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where salary < (select max(salary) from workers)' at line 1
+MariaDB [practice]> select max(salary) from workers where salary < (select max(salary) from workers where salary < (select max(salary) from workers));
++-------------+
+| max(salary) |
++-------------+
+|       25000 |
++-------------+
+1 row in set (0.001 sec)
+
+MariaDB [practice]>
